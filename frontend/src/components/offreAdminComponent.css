@@ -1,0 +1,294 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    color: #171F5D;
+    line-height: 1.5;
+    padding: 0px;
+}
+
+/* Conteneur principal */
+.offre-admin-container {
+    width: 100%;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(33, 22, 99, 0.1);
+}
+/* Animation pour le titre */
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0; /* Au départ, l'élément est transparent */
+        transform: translateY(-20px); /* L'élément commence au-dessus de sa position */
+    }
+    100% {
+        opacity: 1; /* À la fin, l'élément est totalement visible */
+        transform: translateY(0); /* L'élément est à sa position d'origine */
+    }
+}
+
+.offre-admin-container h1 {
+    text-align: center;
+    font-size: 2.2rem; /* Taille réduite */
+    align-items: center;
+    color: #171F5D;
+    margin-bottom: 25px; /* Espacement réduit */
+    font-weight: bold;
+    animation: fadeInSlide 1s ease-out; /* Applique l'animation */
+}
+
+/* Filtres */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px; /* Espacement réduit */
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 25px; /* Espacement réduit */
+    align-content: center;
+}
+
+.filters input, .filters select {
+    padding: 8px; /* Padding réduit */
+    border: 1px solid #171F5D;
+    border-radius: 6px; /* Bordure plus douce */
+    font-size: 0.95rem; /* Taille réduite */
+    width: 200px;
+    text-align: center;
+    align-items: center;
+    transition: border-color 0.3s ease-in-out;
+    background-color: #D2D3D9;
+}
+
+.filters select {
+    cursor: pointer;
+    width: auto;
+}
+
+.filters input {
+    width: 230px;
+}
+
+.filters input:focus, .filters select:focus {
+    border-color: #171F5D;
+    outline: none;
+}
+
+/* Cartes d'offres */
+.offer-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); /* Cartes un peu plus petites */
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+/* Carte d'offre */
+.offer-card {
+    background-color: #F2E6D0;
+    border: 1px solid #171F5D;
+    border-radius: 10px;
+    padding: 10px; /* Padding réduit */
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.offer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.offer-card img {
+    width: 100%;
+    height: 180px; /* Taille réduite */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px; /* Espacement réduit */
+}
+
+.offer-card h3 {
+    font-size: 1.4rem; /* Taille réduite */
+    color: #171F5D;
+    margin-bottom: 12px; /* Espacement réduit */
+    font-weight: bold;
+}
+
+/* Animation pour le prix avec réduction */
+@keyframes fadeInPrice {
+    0% {
+        opacity: 0; /* Début transparent */
+        transform: translateY(-20px); /* Commence légèrement en haut */
+    }
+    100% {
+        opacity: 1; /* Devient complètement visible */
+        transform: translateY(0); /* Retour à la position d'origine */
+    }
+}
+
+.offer-card h5 {
+    font-size: 1.3rem; /* Taille du texte */
+    color: #FFAA00; /* Couleur verte attrayante (vert frais) */
+    font-weight: bold;
+    margin-bottom: 12px;
+    animation: fadeInPrice 1s ease-out; /* Applique l'animation */
+}
+
+.offer-card p {
+    font-size: 0.95rem; /* Taille réduite */
+    color: #171F5D;
+    margin-bottom: 15px; /* Espacement réduit */
+}
+
+.offer-card .price-section {
+    margin-top: 12px;
+    font-size: 1.1rem; /* Taille réduite */
+}
+
+/* Prix original */
+.original-price {
+    color: #6c757d; /* Gris clair pour un look plus subtil */
+    font-size: 1.5rem; /* Taille du texte légèrement plus grande */
+    font-weight: 600; /* Un poids de police élégant */
+    text-decoration: line-through; /* Ligne barrée */
+    text-decoration-color: #FFAA00; /* Jaune doré pour la ligne barrée, élégant et raffiné */
+    position: relative; /* Nécessaire pour la barre */
+    padding-right: 20px; /* Un peu d'espace à droite pour la barre */
+    margin-bottom: 15px; /* Marge inférieure pour espacement */
+    display: inline-block; /* Garder le texte compact et bien aligné */
+    transition: all 0.3s ease-in-out; /* Transition fluide pour le survol */
+}
+
+/* Créer une barre élégante sous le texte */
+.original-price:after {
+    content: ''; /* Crée une barre */
+    position: absolute;
+    bottom: -5px; /* Positionner la barre juste en dessous du texte */
+    left: 0;
+    width: 100%; /* La barre fait toute la largeur du texte */
+    height: 3px; /* Hauteur de la barre */
+    background-color: #e0a800; /* Couleur de la barre dorée */
+    border-radius: 2px; /* Rendre les bords de la barre légèrement arrondis */
+    transform: scaleX(0); /* Initialement, la barre est invisible */
+    transform-origin: left center; /* La barre s'agrandit de gauche à droite */
+    transition: transform 0.3s ease-in-out; /* Transition douce */
+}
+
+/* Effet au survol : la barre se déploie */
+.original-price:hover:after {
+    transform: scaleX(1); /* Déployer la barre sur toute la largeur */
+}
+
+/* Au survol, change la couleur du texte pour un effet visuel */
+.original-price:hover {
+    color: #e0a800; /* Couleur dorée pour le texte */
+    cursor: pointer; /* Changer le curseur en main */
+}
+
+/* Prix réduit */
+.discounted-price {
+    color: #FFAA00;
+    font-weight: bold;
+}
+
+.discount-percentage {
+    color: #FFAA00;
+    font-size: 1.1rem; /* Taille réduite */
+}
+
+/* Bouton Réserver */
+.btnn-reserver {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 18px; /* Padding réduit */
+    background-color: #171F5D ;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 1rem; /* Taille réduite */
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btnn-reserver:hover {
+    background-color:#FFAA00;
+    color: #fff;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px; /* Espacement réduit */
+}
+
+.pagination button {
+    padding: 8px 18px; /* Padding réduit */
+    border: 1px solid #D2D3D9;
+    border-radius: 6px; /* Bordure plus douce */
+    background-color: #171F5D;
+    color: #fff;
+    font-size: 1rem; /* Taille réduite */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination button:hover {
+    background-color: #FFAA00;
+}
+
+.pagination span {
+    font-size: 1rem; /* Taille réduite */
+    color: #171F5D;
+}
+
+/* Hover effect on filters */
+.filters input:hover, .filters select:hover {
+    border-color: #FFAA00;
+    cursor: pointer;
+}
+/* Animation et effet sur le mot */
+.type {
+    font-size: 1.2rem; /* Taille de police personnalisée */
+    color: #157933; /* Rouge initial */
+    font-weight: bold;
+    animation: colorChange 1s ease-in-out infinite; /* Animation sur la couleur */
+}
+
+/* Définir l'animation */
+@keyframes colorChange {
+    0% {
+        color:#FFAA00 ; /* Rouge initial */
+    }
+    50% {
+        color: #171F5D; /* Jaune à la moitié de l'animation */
+    }
+    100% {
+        color: #D2D3D9; /* Retour au rouge */
+    }
+}
+
+/* Survol : changer la couleur au survol */
+.type:hover {
+    color: #FF4500; /* Couleur rouge plus clair au survol */
+    cursor: pointer; /* Indiquer que l'élément est cliquable */
+    transform: scale(1.1); /* Agrandir légèrement l'élément au survol */
+    transition: color 0.3s, transform 0.3s; /* Transition pour l'animation */
+}
+

@@ -1,0 +1,74 @@
+/* Effet de fond animé */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Fond principal avec animation */
+.home-container {
+  width: 100vw;
+  height: 100vh;
+  /* background: linear-gradient(-45deg, #DFDCF2, #D2D3D9, #F2E8C9, #F2E6D0); */
+  background: url('c:\Users\pc\Downloads\WhatsApp Image 2025-03-13 à 23.17.03_02cd1b34.jpg') center center/cover;
+  background-size: 150% 150%;
+  animation: gradientAnimation 10s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Carte principale avec effet verre (Glassmorphism) */
+.glass-card {
+  width: 420px;
+ 
+  background: linear-gradient(-45deg,#F2E6D0,#F2E8C9,#D2D3D9, #DFDCF2 );
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: #333;
+  border-radius: 10px;
+  padding: 30px 40px;
+ 
+}
+
+/* Titre principal */
+.welcome-text {
+  font-size: 30px;
+  font-weight: bold;
+  color: #171F5D; /* Couleur contrastante */
+  margin-bottom: 10px;
+}
+
+.welcome-text span {
+  color: #FFAA00; /* Accent couleur */
+}
+.logo {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* Bouton stylisé */
+.btn-connect {
+  background-color: #FFAA00;
+  /* background: linear-gradient(135deg, #D2D3D9, #F2E6D0); */
+  color: #171F5D; /* Texte en couleur contrastante */
+  border: none;
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.btn-connect:hover {
+  background: linear-gradient(135deg, #F2E6D0, #F2E8C9,#D2D3D9);
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(242, 232, 201, 0.5);
+}

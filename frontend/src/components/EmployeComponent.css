@@ -1,0 +1,210 @@
+/* EmployeComponent.css */
+
+/* Corps de la page */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F4F6F9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section contenant le titre, la recherche et le bouton Ajouter */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #FFAA00;
+  padding: 2px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  color: #171F5D;
+  font-size: 28px;
+  
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Barre de recherche et filtres */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  width: 50%;
+  height: auto;
+}
+.action-column-e{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.search-bar input, .search-bar select {
+  padding: 10px;
+  border: 1px solid #D2D3D9;
+  border-radius: 4px;
+  width: 50%;
+  height: auto;
+  font-size: 14px;
+}
+
+.search-bar input:focus, .search-bar select:focus {
+  border-color: #FFAA00;
+  outline: none;
+  height: auto;
+
+}
+
+/* Bouton "Ajouter Employé" */
+.add-button {
+  background-color: #FFAA00;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  height: auto;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #e67e00;
+}
+
+/* Tableau des employés */
+.ant-table {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  border: none;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #D2D3D9;
+  color: #171F5D;
+  font-weight: 600;
+  text-align: center;
+}
+
+.ant-table-tbody > tr > td {
+  text-align: center;
+  color: #333;
+}
+
+.ant-table-row:hover {
+  background-color: #FFAA00;
+  color: white;
+}
+
+/* Pagination */
+.ant-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ant-pagination-item {
+  border: 1px solid #D2D3D9;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.ant-pagination-item-active {
+  background-color: #171F5D;
+  border-color: #171F5D;
+}
+
+.ant-pagination-item-link {
+  color: #171F5D;
+}
+
+.ant-pagination-prev,
+.ant-pagination-next {
+  color: #171F5D;
+}
+
+/* Modale */
+.ant-modal-content {
+  border-radius: 8px;
+}
+
+.ant-modal-header {
+  background-color: #171F5D;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+}
+
+.ant-modal-body {
+  padding: 20px;
+}
+
+.ant-modal-footer {
+  background-color: #F4F6F9;
+  border-top: 1px solid #D2D3D9;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ant-btn-primary {
+  background-color: #171F5D;
+  border: none;
+  font-weight: 600;
+}
+
+.ant-btn-primary:hover {
+  background-color: #0e1640;
+}
+
+.ant-btn-danger {
+  background-color: #e74c3c;
+  color: white;
+  font-weight: 600;
+}
+
+.ant-btn-danger:hover {
+  background-color: #c0392b;
+}
+
+/* Champs de formulaire dans la modale */
+.ant-input {
+  margin-bottom: 10px;
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #D2D3D9;
+}
+
+.ant-input:focus {
+  border-color: #FFAA00;
+}
+
+input {
+  width: 100%;
+}
+
+/* Styles pour les boutons dans les actions */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.action-buttons button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.action-buttons .edit-button {
+  background-color: #FFAA00;
+  color: white;
+}
+
+.action-buttons .delete-button {
+  background-color: #e74c3c;
+  color: white;
+}

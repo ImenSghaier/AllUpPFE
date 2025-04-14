@@ -1,0 +1,127 @@
+.contrats-recus-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: white;
+  color: #171F5D;
+}
+.contrats-recus-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #171F5D;
+}
+.contrats-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.contrats-table th,
+.contrats-table td {
+  border: 1px solid #171F5D;
+  padding: 10px;
+  text-align: center;
+  color: #171F5D;
+}
+
+.contrats-table th {
+  background-color: #FFAA00;
+  color: white;
+}
+.contrats-table tr:hover {
+  background-color: #f4f2fd;
+  
+}
+.btn-validate {
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-validate:hover {
+  background-color: #D2D3D9;
+  color: #4caf50;
+}
+
+.btn-refuse {
+  background-color: #d10000;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-refuse:hover {
+  background-color: #FFFFFF;
+  color: #d10000;
+}
+
+.btn-sign {
+  background-color: #171F5D;
+  color: #D2D3D9;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-sign:hover {
+  background-color: #FFAA00;
+}
+
+.message {
+  margin-bottom: 10px;
+  color: #FFAA00;
+  font-weight: bold;
+}
+
+.filtrage-statuts {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.filtrage-statuts button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #171F5D;
+  color: white;
+  cursor: pointer;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.filtrage-statuts button.active {
+  background-color: #D2D3D9;
+  color: #171F5D;
+}
+.filtrage-statuts button:hover {
+  background-color: #F2E6D0;
+  color: #FFAA00;
+}
+.pagination button {
+  margin: 0 5px;
+  padding: 6px 10px;
+  border: none;
+  background-color: #D2D3D9;
+  color: #171F5D;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button.active {
+  background-color: #FFAA00;
+  color: #171F5D;
+}

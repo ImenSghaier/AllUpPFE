@@ -1,0 +1,61 @@
+export const FETCH_ENTREPRISES = 'FETCH_ENTREPRISES';
+export const ADD_ENTREPRISE = 'ADD_ENTREPRISE';
+export const UPDATE_ENTREPRISE = 'UPDATE_ENTREPRISE';
+export const DELETE_ENTREPRISE = 'DELETE_ENTREPRISE';
+
+
+export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
+export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
+
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
+
+// Types d'actions pour les utilisateurs
+export const GET_USERS_REQUEST = 'GET_USERS_REQUEST';
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
+
+export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
+export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
+
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
+export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
+
+export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';
+export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE';
+
+export const SET_USER_FILTER = 'SET_USER_FILTER';
+export const RESET_USER_FILTER = 'RESET_USER_FILTER';
+
+// Action Types pour les offres
+// Types pour la gestion des offres
+// src/redux/actions/types.js
+
+export const GET_OFFRES = 'GET_OFFRES';
+export const ADD_OFFRE = 'ADD_OFFRE';
+export const DELETE_OFFRE = 'DELETE_OFFRE';
+export const UPDATE_OFFRE = 'UPDATE_OFFRE';
+export const SET_LOADING = 'SET_LOADING';
+
+// Action Types pour l'état de chargement et d'erreur
+
+export const SET_ERROR = 'SET_ERROR';
+
+// Types d'actions pour la gestion des employés
+export const GET_EMPLOYEES = 'GET_EMPLOYEES';
+export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
+export const UPDATE_EMPLOYEE = 'UPDATE_EMPLOYEE';
+export const DELETE_EMPLOYEE = 'DELETE_EMPLOYEE';
+export const SET_EMPLOYEES = 'SET_EMPLOYEES';
+export const GET_EMPLOYEES_FAIL = 'GET_EMPLOYEES_FAIL';
+export const ADD_EMPLOYEE_FAIL = 'ADD_EMPLOYEE_FAIL';
+export const UPDATE_EMPLOYEE_FAIL = 'UPDATE_EMPLOYEE_FAIL';
+export const DELETE_EMPLOYEE_FAIL = 'DELETE_EMPLOYEE_FAIL';
+
+export const CREATE_CONTRACT = "CREATE_CONTRACT";
+export const GET_SENT_CONTRACTS = "GET_SENT_CONTRACTS";
+export const GET_RECEIVED_CONTRACTS = "GET_RECEIVED_CONTRACTS";
+export const VALIDATE_CONTRACT = "VALIDATE_CONTRACT";
+export const SIGN_CONTRACT = "SIGN_CONTRACT";
