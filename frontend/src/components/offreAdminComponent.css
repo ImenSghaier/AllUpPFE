@@ -1,294 +1,425 @@
-/* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
-}
+/* offresAdminComponent.css */
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: white;
-    color: #171F5D;
-    line-height: 1.5;
-    padding: 0px;
-}
-
-/* Conteneur principal */
 .offre-admin-container {
-    width: 100%;
-    padding: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(33, 22, 99, 0.1);
-}
-/* Animation pour le titre */
-@keyframes fadeInSlide {
-    0% {
-        opacity: 0; /* Au départ, l'élément est transparent */
-        transform: translateY(-20px); /* L'élément commence au-dessus de sa position */
-    }
-    100% {
-        opacity: 1; /* À la fin, l'élément est totalement visible */
-        transform: translateY(0); /* L'élément est à sa position d'origine */
-    }
+    padding: 0.2rem;
+    color: #333;
 }
 
 .offre-admin-container h1 {
-    text-align: center;
-    font-size: 2.2rem; /* Taille réduite */
-    align-items: center;
     color: #171F5D;
-    margin-bottom: 25px; /* Espacement réduit */
-    font-weight: bold;
-    animation: fadeInSlide 1s ease-out; /* Applique l'animation */
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    position: relative;
 }
 
-/* Filtres */
+.offre-admin-container h1::after {
+    content: '';
+    display: block;
+    width: 150px;
+    height: 4px;
+    background: #171F5D;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
 .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 50px; /* Espacement réduit */
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
     justify-content: center;
-    text-align: center;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 25px; /* Espacement réduit */
-    align-content: center;
 }
 
-.filters input, .filters select {
-    padding: 8px; /* Padding réduit */
-    border: 1px solid #171F5D;
-    border-radius: 6px; /* Bordure plus douce */
-    font-size: 0.95rem; /* Taille réduite */
-    width: 200px;
-    text-align: center;
-    align-items: center;
-    transition: border-color 0.3s ease-in-out;
-    background-color: #D2D3D9;
-}
-
+.filters input,
 .filters select {
-    cursor: pointer;
-    width: auto;
+    padding: 0.5rem 0.5rem;
+    border: 2px solid #171F5D;
+    border-radius: 40px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.filters input:focus,
+.filters select:focus {
+    outline: none;
+    border-color: #FFAA00;
+    box-shadow: 0 0 0 3px rgba(255, 170, 0, 0.2);
 }
 
 .filters input {
-    width: 230px;
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
 }
 
-.filters input:focus, .filters select:focus {
+.filters select {
+    min-width: 200px;
+    cursor: pointer;
+}
+
+.categorie-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+   
+   
+}
+
+.categorie-icon {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    background-color: white;
+    border-radius: 70px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #FFAA00;
+    color: #FFAA00;
+}
+
+.categorie-icon svg {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #FFAA00;
+}
+
+.categorie-icon span {
+    font-size: 0.9rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.categorie-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: #FFAA00;
+}
+
+.categorie-icon.active {
+    background-color: #171F5D;
+    color: white;
     border-color: #171F5D;
-    outline: none;
 }
 
-/* Cartes d'offres */
+.categorie-icon.active svg {
+    color: white;
+}
+
 .offer-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); /* Cartes un peu plus petites */
-    gap: 10px;
-    margin-bottom: 25px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
 }
 
-/* Carte d'offre */
 .offer-card {
-    background-color: #F2E6D0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
     border: 1px solid #171F5D;
-    border-radius: 10px;
-    padding: 10px; /* Padding réduit */
-    text-align: center;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
 .offer-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #FFAA00;
 }
 
 .offer-card img {
     width: 100%;
-    height: 180px; /* Taille réduite */
+    height: 200px;
     object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 12px; /* Espacement réduit */
+    border-bottom: 2px solid #171F5D;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    background: white;
+    border-bottom: 1px solid #D2D3D9;
+}
+
+.card-category {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #171F5D;
+}
+
+.card-category svg {
+    margin-right: 0.5rem;
+    color: #171F5D;
+    font-size: 1rem;
+}
+
+.card-status {
+    background-color: #171F5D;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.card-content {
+    padding: 0.5rem;
+    flex-grow: 1;
 }
 
 .offer-card h3 {
-    font-size: 1.4rem; /* Taille réduite */
-    color: #171F5D;
-    margin-bottom: 12px; /* Espacement réduit */
-    font-weight: bold;
-}
-
-/* Animation pour le prix avec réduction */
-@keyframes fadeInPrice {
-    0% {
-        opacity: 0; /* Début transparent */
-        transform: translateY(-20px); /* Commence légèrement en haut */
-    }
-    100% {
-        opacity: 1; /* Devient complètement visible */
-        transform: translateY(0); /* Retour à la position d'origine */
-    }
-}
-
-.offer-card h5 {
-    font-size: 1.3rem; /* Taille du texte */
-    color: #FFAA00; /* Couleur verte attrayante (vert frais) */
-    font-weight: bold;
-    margin-bottom: 12px;
-    animation: fadeInPrice 1s ease-out; /* Applique l'animation */
+    color: #FFAA00;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .offer-card p {
-    font-size: 0.95rem; /* Taille réduite */
     color: #171F5D;
-    margin-bottom: 15px; /* Espacement réduit */
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
 }
 
-.offer-card .price-section {
-    margin-top: 12px;
-    font-size: 1.1rem; /* Taille réduite */
+.price-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 0.5rem 0;
+    flex-wrap: wrap;
 }
 
-/* Prix original */
-.original-price {
-    color: #6c757d; /* Gris clair pour un look plus subtil */
-    font-size: 1.5rem; /* Taille du texte légèrement plus grande */
-    font-weight: 600; /* Un poids de police élégant */
-    text-decoration: line-through; /* Ligne barrée */
-    text-decoration-color: #FFAA00; /* Jaune doré pour la ligne barrée, élégant et raffiné */
-    position: relative; /* Nécessaire pour la barre */
-    padding-right: 20px; /* Un peu d'espace à droite pour la barre */
-    margin-bottom: 15px; /* Marge inférieure pour espacement */
-    display: inline-block; /* Garder le texte compact et bien aligné */
-    transition: all 0.3s ease-in-out; /* Transition fluide pour le survol */
-}
-
-/* Créer une barre élégante sous le texte */
-.original-price:after {
-    content: ''; /* Crée une barre */
-    position: absolute;
-    bottom: -5px; /* Positionner la barre juste en dessous du texte */
-    left: 0;
-    width: 100%; /* La barre fait toute la largeur du texte */
-    height: 3px; /* Hauteur de la barre */
-    background-color: #e0a800; /* Couleur de la barre dorée */
-    border-radius: 2px; /* Rendre les bords de la barre légèrement arrondis */
-    transform: scaleX(0); /* Initialement, la barre est invisible */
-    transform-origin: left center; /* La barre s'agrandit de gauche à droite */
-    transition: transform 0.3s ease-in-out; /* Transition douce */
-}
-
-/* Effet au survol : la barre se déploie */
-.original-price:hover:after {
-    transform: scaleX(1); /* Déployer la barre sur toute la largeur */
-}
-
-/* Au survol, change la couleur du texte pour un effet visuel */
-.original-price:hover {
-    color: #e0a800; /* Couleur dorée pour le texte */
-    cursor: pointer; /* Changer le curseur en main */
-}
-
-/* Prix réduit */
-.discounted-price {
+.original-priceo {
+    font-size: 1rem;
     color: #FFAA00;
-    font-weight: bold;
+    text-decoration: line-through;
+    font-weight: 600;
+    margin-top: -18px;
+    
 }
 
 .discount-percentage {
+    background-color: white;
     color: #FFAA00;
-    font-size: 1.1rem; /* Taille réduite */
+    padding: 0.25rem 0.25rem;
+    border-radius: 10px;
+    border: 1px solid #171F5D;
+    font-size: 0.85rem;
+    font-weight: 700;
 }
 
-/* Bouton Réserver */
-.btnn-reserver {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 8px 18px; /* Padding réduit */
-    background-color: #171F5D ;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 1rem; /* Taille réduite */
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+.discounted-price h5 {
+    font-size: 1.5rem;
+    color: #FFAA00;
+    margin-top: -15px;
+    font-weight: 700;
 }
 
-.btnn-reserver:hover {
-    background-color:#FFAA00;
-    color: #fff;
-}
-
-/* Pagination */
-.pagination {
+.dates-container {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 25px; /* Espacement réduit */
+    align-items: center;
+    justify-content: space-between;
+    background: #F8FAFC;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin: 0.1rem 0;
+    margin-top: -10px;
 }
 
-.pagination button {
-    padding: 8px 18px; /* Padding réduit */
-    border: 1px solid #D2D3D9;
-    border-radius: 6px; /* Bordure plus douce */
-    background-color: #171F5D;
-    color: #fff;
-    font-size: 1rem; /* Taille réduite */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.pagination button:hover {
-    background-color: #FFAA00;
-}
-
-.pagination span {
-    font-size: 1rem; /* Taille réduite */
+.date-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
     color: #171F5D;
 }
 
-/* Hover effect on filters */
-.filters input:hover, .filters select:hover {
-    border-color: #FFAA00;
+.date-item svg {
+    margin-right: 0.5rem;
+    color: #171F5D;
+}
+
+.card-footer {
+    display: flex;
+    border-top: 1px solid #D2D3D9;
+}
+
+.btnn-reserver {
+    flex: 1;
+    background-color: #171F5D;
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-}
-/* Animation et effet sur le mot */
-.type {
-    font-size: 1.2rem; /* Taille de police personnalisée */
-    color: #157933; /* Rouge initial */
-    font-weight: bold;
-    animation: colorChange 1s ease-in-out infinite; /* Animation sur la couleur */
+    transition: all 0.3s ease;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* Définir l'animation */
-@keyframes colorChange {
-    0% {
-        color:#FFAA00 ; /* Rouge initial */
+.btnn-reserver:hover {
+    background-color: #FFAA00;
+}
+
+.btnn-modifier {
+    flex: 1;
+    background-color: white;
+    color: #FFAA00;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    border-right: 1px solid #D2D3D9;
+}
+
+.btnn-modifier:hover {
+    background-color: #f5f5f5;
+}
+
+.btnn-supprimer {
+    flex: 1;
+    background-color: white;
+    color: #F44336;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btnn-supprimer:hover {
+    background-color: #f5f5f5;
+}
+
+/* Type badge */
+.offer-type {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #D2D3D9;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .offer-cards {
+        grid-template-columns: 1fr;
     }
-    50% {
-        color: #171F5D; /* Jaune à la moitié de l'animation */
-    }
-    100% {
-        color: #D2D3D9; /* Retour au rouge */
+    
+    .dates-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
     }
 }
 
-/* Survol : changer la couleur au survol */
-.type:hover {
-    color: #FF4500; /* Couleur rouge plus clair au survol */
-    cursor: pointer; /* Indiquer que l'élément est cliquable */
-    transform: scale(1.1); /* Agrandir légèrement l'élément au survol */
-    transition: color 0.3s, transform 0.3s; /* Transition pour l'animation */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
+.pagination button {
+    padding: 0.6rem 1.2rem;
+    background-color: #171F5D;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #FFAA00;
+    transform: translateY(-2px);
+}
+
+.pagination button:disabled {
+    background-color: #D2D3D9;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.pagination span {
+    font-weight: 600;
+    color: #171F5D;
+}
+
+/* Animation de chargement */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    border: 4px solid #D2D3D9;
+    border-top: 4px solid #FFAA00;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filters input,
+    .filters select {
+        width: 100%;
+    }
+    
+    .offer-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .categorie-icons {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+    }
+    
+    .categorie-icon {
+        min-width: 120px;
+    }
+}

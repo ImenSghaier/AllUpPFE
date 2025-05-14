@@ -4,9 +4,9 @@ const Utilisateur = require('../models/utilisateur');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
-const dotenv = require('dotenv');
 const authMiddleware = require('../middlewares/authMiddleware');
-
+const dotenv = require('dotenv');
+const crypto = require('crypto');
 dotenv.config();
 
 // Configuration de Nodemailer
@@ -17,7 +17,6 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
-
 // Fonction pour envoyer un email avec le mot de passe
 const sendPasswordEmail = async (email, password) => {
     const mailOptions = {
@@ -28,13 +27,242 @@ const sendPasswordEmail = async (email, password) => {
     };
     await transporter.sendMail(mailOptions);
 };
-
-// Génération et hachage du mot de passe
+// Fonction pour générer et hacher un mot de passe aléatoire
 const generateHashedPassword = () => {
-    const password = Math.random().toString(36).slice(-8);
+    const password = Math.random().toString(36).slice(-8); // Exemple : "a4kd91zq"
     const hashedPassword = bcrypt.hashSync(password, 8);
     return { password, hashedPassword };
 };
+// Afficher les informations du profil
+router.get('/profile', authMiddleware(), async (req, res) => {
+    try {
+        const user = await Utilisateur.findById(req.user._id)
+            .select('nom email telephone role id_entreprise');
+
+        if (!user) {
+            return res.status(404).json({ message: "Utilisateur non trouvé" });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Erreur lors de la récupération du profil :", error);
+        res.status(500).json({ message: "Erreur serveur" });
+    }
+});
+
+// Mettre à jour le profil (nom et téléphone seulement)
+router.put('/profile', authMiddleware(), async (req, res) => {
+    try {
+        const { nom, telephone } = req.body;
+
+        if (!nom || !telephone) {
+            return res.status(400).json({ message: "Nom et téléphone sont requis" });
+        }
+
+        const user = await Utilisateur.findById(req.user._id);
+        if (!user) {
+            return res.status(404).json({ message: "Utilisateur non trouvé" });
+        }
+
+        user.nom = nom;
+        user.telephone = telephone;
+
+        await user.save();
+
+        res.status(200).json({
+            message: "Profil mis à jour avec succès",
+            utilisateur: {
+                nom: user.nom,
+                email: user.email,
+                telephone: user.telephone,
+                role: user.role,
+                id_entreprise: user.id_entreprise
+            }
+        });
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour du profil :", error);
+        res.status(500).json({ message: "Erreur serveur" });
+    }
+});
+
+// 🚨 Route de demande de réinitialisation du mot de passe
+router.post('/forgot-password', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const user = await Utilisateur.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "Aucun utilisateur trouvé avec cet email." });
+        }
+
+        // Génération du mot de passe temporaire et token de confirmation
+        const { password: newPassword, hashedPassword } = generateHashedPassword();
+        const token = crypto.randomBytes(32).toString('hex');
+
+        // Enregistrer le token et le mot de passe temporaire
+        user.resetToken = token;
+        user.resetPasswordTemp = hashedPassword;
+        user.resetTokenExpires = Date.now() + 3600000; // 1h
+        await user.save();
+
+        const confirmUrl = `http://localhost:4000/user/confirm-reset-password?token=${token}`;
+        const cancelUrl = `http://localhost:4000/user/cancel-reset-password?token=${token}`;
+
+        // 📧 Envoyer l'email avec les deux boutons
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Confirmation de la réinitialisation de mot de passe',
+            html: `
+                <p>Bonjour ${user.nom},</p>
+                <p>Vous avez demandé une réinitialisation de votre mot de passe. Voici le mot de passe proposé :</p>
+                <h3>${newPassword}</h3>
+                <p>Confirmez si cette demande vient bien de vous :</p>
+                <a href="${confirmUrl}" style="padding:10px 15px;background:#4CAF50;color:#fff;text-decoration:none;border-radius:5px;">✅ C'est moi</a>
+                &nbsp;
+                <a href="${cancelUrl}" style="padding:10px 15px;background:#f44336;color:#fff;text-decoration:none;border-radius:5px;">❌ Ce n'est pas moi</a>
+                <p>Le lien expirera dans 1 heure.</p>
+                <p>— L’équipe Trivaw</p>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: "Un email de confirmation a été envoyé à l'utilisateur." });
+    } catch (err) {
+        console.error("Erreur lors de la demande de réinitialisation :", err);
+        res.status(500).json({ message: "Erreur serveur." });
+    }
+});
+
+// ✅ Route pour confirmer le mot de passe
+router.get('/confirm-reset-password', async (req, res) => {
+    const { token } = req.query;
+
+    try {
+        const user = await Utilisateur.findOne({
+            resetToken: token,
+            resetTokenExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).send("Lien invalide ou expiré.");
+        }
+
+        // Appliquer le nouveau mot de passe
+        user.mot_de_passe = user.resetPasswordTemp;
+        user.resetToken = undefined;
+        user.resetPasswordTemp = undefined;
+        user.resetTokenExpires = undefined;
+        await user.save();
+
+        res.send("✅ Mot de passe modifié avec succès. Vous pouvez maintenant vous connecter.");
+    } catch (err) {
+        console.error("Erreur lors de la confirmation :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// ❌ Route pour annuler la réinitialisation
+router.get('/cancel-reset-password', async (req, res) => {
+    const { token } = req.query;
+
+    try {
+        const user = await Utilisateur.findOne({
+            resetToken: token,
+            resetTokenExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).send("Lien invalide ou expiré.");
+        }
+
+        // Annuler le changement
+        user.resetToken = undefined;
+        user.resetPasswordTemp = undefined;
+        user.resetTokenExpires = undefined;
+        await user.save();
+
+        res.send("❌ Demande de réinitialisation annulée. Aucun changement effectué.");
+    } catch (err) {
+        console.error("Erreur lors de l'annulation :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+module.exports = router;
+
+
+
+
+// const express = require('express');
+// const router = express.Router();
+// const Utilisateur = require('../models/utilisateur');
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const nodemailer = require('nodemailer');
+// const dotenv = require('dotenv');
+// const authMiddleware = require('../middlewares/authMiddleware');
+// const crypto = require('crypto');
+// dotenv.config();
+
+// // Configuration de Nodemailer
+// const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: process.env.EMAIL_USER,
+//         pass: process.env.EMAIL_PASS
+//     }
+// });
+
+// // Fonction pour envoyer un email avec le mot de passe
+// const sendPasswordEmail = async (email, password) => {
+//     const mailOptions = {
+//         from: process.env.EMAIL_USER,
+//         to: email,
+//         subject: 'Création de compte',
+//         text: `Votre compte a été créé. Voici vos identifiants :\nEmail : ${email}\nMot de passe : ${password}`
+//     };
+//     await transporter.sendMail(mailOptions);
+// };
+
+// // Génération et hachage du mot de passe
+// const generateHashedPassword = () => {
+//     const password = Math.random().toString(36).slice(-8);
+//     const hashedPassword = bcrypt.hashSync(password, 8);
+//     return { password, hashedPassword };
+// };
+// router.post('/forgot-password', async (req, res) => {
+//     const { email } = req.body;
+
+//     try {
+//         // 🔍 Vérifier si l'utilisateur existe
+//         const user = await Utilisateur.findOne({ email });
+//         if (!user) {
+//             return res.status(404).json({ message: "Aucun utilisateur trouvé avec cet email." });
+//         }
+
+//         // 🔐 Générer un nouveau mot de passe aléatoire
+//         const { password: newPassword, hashedPassword } = generateHashedPassword();
+
+//         // 🔄 Mettre à jour le mot de passe dans la base de données
+//         user.mot_de_passe = hashedPassword;
+//         await user.save();
+
+//         // 📧 Envoyer le nouveau mot de passe par email
+//         const mailOptions = {
+//             from: process.env.EMAIL_USER,
+//             to: email,
+//             subject: 'Réinitialisation de votre mot de passe',
+//             text: `Bonjour ${user.nom},\n\nVotre mot de passe a été réinitialisé. Voici votre nouveau mot de passe :\n\n🔐 ${newPassword}\n\nMerci de le changer après vous être connecté(e).\n\nCordialement,\nL’équipe Trivaw`
+//         };
+//         await transporter.sendMail(mailOptions);
+
+//         res.status(200).json({ message: "Un nouveau mot de passe a été envoyé à votre adresse email." });
+//     } catch (err) {
+//         console.error("Erreur lors de la réinitialisation du mot de passe :", err);
+//         res.status(500).json({ message: "Erreur serveur." });
+//     }
+// });
 
 // 🚀 **Authentification**
 router.post('/login', async (req, res) => {
@@ -54,7 +282,9 @@ const tokenData = { _id: user._id, email: user.email, role: user.role };
 if (user.role === 'AdminEntreprise') {
     tokenData.id_entreprise = user.id_entreprise; // Inclure id_entreprise pour AdminEntreprise
 }
-
+if (user.role === 'Employé') {
+    tokenData.id_entreprise = user.id_entreprise; // Inclure id_entreprise pour AdminEntreprise
+}
 const token = jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: '24h' });
 res.status(200).json({ token });
 });

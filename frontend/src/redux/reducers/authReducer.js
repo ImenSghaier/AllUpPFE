@@ -1,9 +1,16 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from "../actions/authAction";
+import {
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
+} from "../actions/authAction";
 
 const initialState = {
   user: null,
   token: localStorage.getItem("token") || null,
   error: null,
+  message: null, // Pour afficher les messages de succès (ex: forgot password)
 };
 
 const authReducer = (state = initialState, action) => {
@@ -20,12 +27,24 @@ const authReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
-    case LOGOUT:  // Réinitialiser l'état de l'utilisateur lors de la déconnexion
+    case LOGOUT:
       return {
         ...state,
         user: null,
         token: null,
         error: null,
+      };
+    case FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        message: action.payload,
+        error: null,
+      };
+    case FORGOT_PASSWORD_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        message: null,
       };
     default:
       return state;
@@ -33,3 +52,4 @@ const authReducer = (state = initialState, action) => {
 };
 
 export default authReducer;
+

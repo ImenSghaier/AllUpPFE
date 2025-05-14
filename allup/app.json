@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "allup",
+    "plugins": [
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Besoin d'accéder à votre caméra pour scanner les codes QR"
+        }
+      ]
+    ],
+    "slug": "snack-00712a00-eeef-4252-843c-dbefb5f751dc",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "permissions": [
+        "CAMERA",
+        "CAMERA"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.anonymous.snack00712a00eeef4252843cdbefb5f751dc"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

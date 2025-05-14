@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEntreprises, addEntreprise, updateEntreprise, deleteEntreprise } from '../redux/actions/entrepriseAction';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './entrepriseComponent.css';
 
 const EntrepriseComponent = () => {
@@ -13,9 +15,11 @@ const EntrepriseComponent = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [selectedEntreprise, setSelectedEntreprise] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [entrepriseToDelete, setEntrepriseToDelete] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchEntreprises(page, 10, search, sort)); // Le 10 est le limit par page
+    dispatch(fetchEntreprises(page, 10, search, sort));
   }, [dispatch, page, search, sort]);
 
   const handleAddClick = () => {
@@ -37,42 +41,129 @@ const EntrepriseComponent = () => {
     setIsAdding(false);
   };
 
-  const handleAddEditSubmit = (e) => {
+  const handleAddEditSubmit = async (e) => {
     e.preventDefault();
     if (!formData.nom || !formData.email || !formData.adresse || !formData.telephone) {
-      alert("Tous les champs sont obligatoires !");
+      toast.error("Tous les champs sont obligatoires !", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       return;
     }
 
-    if (isEditing) {
-      dispatch(updateEntreprise(selectedEntreprise._id, formData));
-    } else {
-      dispatch(addEntreprise(formData));
-    }
+    try {
+      if (isEditing) {
+        await dispatch(updateEntreprise(selectedEntreprise._id, formData));
+        toast.success("Entreprise modifiée avec succès !", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else {
+        await dispatch(addEntreprise(formData));
+        toast.success("Entreprise ajoutée avec succès !", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
 
-    setFormData({ nom: '', email: '', adresse: '', telephone: '' });
-    setIsEditing(false);
-    setIsAdding(false);
-    setSelectedEntreprise(null);
+      setFormData({ nom: '', email: '', adresse: '', telephone: '' });
+      setIsEditing(false);
+      setIsAdding(false);
+      setSelectedEntreprise(null);
+    } catch (error) {
+      toast.error("Une erreur est survenue : " + error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
   };
 
-  const handleDelete = (id) => {
-    dispatch(deleteEntreprise(id));
+  const confirmDelete = (id) => {
+    const entreprise = entreprises.find(e => e._id === id);
+    setEntrepriseToDelete(entreprise);
+    setShowDeleteConfirm(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await dispatch(deleteEntreprise(entrepriseToDelete._id));
+      toast.success(`Entreprise "${entrepriseToDelete.nom}" supprimée avec succès`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      setShowDeleteConfirm(false);
+      setEntrepriseToDelete(null);
+    } catch (error) {
+      toast.error("Erreur lors de la suppression : " + error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
   };
 
   const handlePageChange = (newPage) => {
-    dispatch(fetchEntreprises(newPage, 10, search, sort)); // Chargement des entreprises pour la nouvelle page
+    dispatch(fetchEntreprises(newPage, 10, search, sort));
   };
 
   return (
     <div className="entreprise-container">
+      <ToastContainer />
+      
+      {/* Modal de confirmation de suppression */}
+      {showDeleteConfirm && (
+        <div className="modal-overlay">
+          <div className="modal-container">
+            <h3 className='h3E'>Confirmer la suppression</h3>
+            <p>Êtes-vous sûr de vouloir supprimer l'entreprise "{entrepriseToDelete?.nom}" ?</p>
+            <div className="form-actions">
+              <button 
+                className="submit-button delete-confirm-button" 
+                onClick={handleDelete}
+              >
+                Confirmer
+              </button>
+              <button 
+                className="close-button" 
+                onClick={() => setShowDeleteConfirm(false)}
+              >
+                Annuler
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="header">
         <h2>Entreprises</h2>
         <div className="search-sort">
           <input
             type="text"
-            className="search-input"
-            placeholder="🔍 Rechercher "
+            className="search-input-e"
+            placeholder="Rechercher "
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -88,74 +179,71 @@ const EntrepriseComponent = () => {
                 <option value="email">Email</option>
                 </select>
             </div>
-        </div>
+          </div>
 
-
-
-          <button className="add-button-e" onClick={handleAddClick}>+ Ajouter Entreprise</button>
+          <button className="add-button-e" onClick={handleAddClick}>Ajouter Entreprise</button>
         </div>
       </div>
 
       {(isEditing || isAdding) && (
         <div className="modal-overlay">
           <div className="modal-container">
-  <h3 className='h3'>{isEditing ? 'Modifier' : 'Ajouter'} une entreprise</h3>
-  <form className="entreprise-form" onSubmit={handleAddEditSubmit}>
-    <div className="form-group">
-      <label htmlFor="nom">Nom de l'entreprise</label>
-      <input
-        id="nom"
-        type="text"
-        className="form-input"
-        placeholder="Nom de l'entreprise"
-        value={formData.nom}
-        onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        className="form-input"
-        placeholder="Email"
-        value={formData.email}
-        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="adresse">Adresse</label>
-      <input
-        id="adresse"
-        type="text"
-        className="form-input"
-        placeholder="Adresse"
-        value={formData.adresse}
-        onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="telephone">Téléphone</label>
-      <input
-        id="telephone"
-        type="text"
-        className="form-input"
-        placeholder="Téléphone"
-        value={formData.telephone}
-        onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
-      />
-    </div>
-    <div className="form-actions">
-      <button className="submit-button" type="submit">
-        {isEditing ? 'Modifier' : 'Ajouter'}
-      </button>
-      <button className="close-button" type="button" onClick={() => setIsAdding(false) || setIsEditing(false)}>
-        ❌ Fermer
-      </button>
-    </div>
-  </form>
-</div>
-
+            <h3 className='h3E'>{isEditing ? 'Modifier' : 'Ajouter'} une entreprise</h3>
+            <form className="entreprise-form" onSubmit={handleAddEditSubmit}>
+              <div className="form-group">
+                <label htmlFor="nom">Nom de l'entreprise</label>
+                <input
+                  id="nom"
+                  type="text"
+                  className="form-input"
+                  placeholder="Nom de l'entreprise"
+                  value={formData.nom}
+                  onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  className="form-input"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="adresse">Adresse</label>
+                <input
+                  id="adresse"
+                  type="text"
+                  className="form-input"
+                  placeholder="Adresse"
+                  value={formData.adresse}
+                  onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="telephone">Téléphone</label>
+                <input
+                  id="telephone"
+                  type="text"
+                  className="form-input"
+                  placeholder="Téléphone"
+                  value={formData.telephone}
+                  onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
+                />
+              </div>
+              <div className="form-actions">
+                <button className="submit-button" type="submit">
+                  {isEditing ? 'Modifier' : 'Ajouter'}
+                </button>
+                <button className="close-button" type="button" onClick={() => setIsAdding(false) || setIsEditing(false)}>
+                  ❌ Fermer
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
 
@@ -178,7 +266,7 @@ const EntrepriseComponent = () => {
               <td>{entreprise.telephone || 'Non renseigné'}</td>
               <td><div className="action-buttons">
                 <button className="edit-button" onClick={() => handleEdit(entreprise)}>✏️ Modifier</button>
-                <button className="delete-button" onClick={() => handleDelete(entreprise._id)}>🗑️ Supprimer</button></div>
+                <button className="delete-button" onClick={() => confirmDelete(entreprise._id)}>🗑️ Supprimer</button></div>
               </td>
             </tr>
           ))}

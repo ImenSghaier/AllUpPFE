@@ -85,6 +85,7 @@ const FormulaireContract = ({ contrat, onCancel, setActiveTab }) => {
   };
 
   return (
+    <div className="formulaire-contract">
     <div className="contract-form-container">
       <h2>Créer un contract</h2>
       {loading && <p>Chargement...</p>}
@@ -132,7 +133,9 @@ const FormulaireContract = ({ contrat, onCancel, setActiveTab }) => {
           <button type="submit" disabled={loading || !idEntreprise}>Envoyer</button>
           <button type="button" onClick={onCancel}>Annuler</button>
         </div>
+        
       </form>
+    </div>
     </div>
   );
 };

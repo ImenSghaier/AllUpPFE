@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose');
 
 const Utilisateur =mongoose.model('Utilisateur', {
@@ -37,14 +35,19 @@ const Utilisateur =mongoose.model('Utilisateur', {
         ref:"Entreprise",
         default: null
     },
-    resetPasswordToken: {
+    resetToken: {
+            type: String,
+            default: null
+        },
+resetPasswordTemp: {
         type: String,
         default: null
     },
-    resetPasswordExpires: {
+resetTokenExpires: {
         type: Date,
         default: null
     }
+
 
 })
 

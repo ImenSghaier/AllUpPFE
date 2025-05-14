@@ -1,210 +1,379 @@
-/* EmployeComponent.css */
+/* Variables de couleur */
+:root {
+  --primary-color: #171F5D;
+  --secondary-color: #D2D3D9;
+  --accent-color: #FFAA00;
+  --text-color: #333333;
+  --light-bg: #f8f9fa;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+}
 
-/* Corps de la page */
-body {
+/* Styles de base */
+.employee-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #F4F6F9;
-  margin: 0;
-  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  color: var(--text-color);
 }
 
-/* Section contenant le titre, la recherche et le bouton Ajouter */
-.header {
+.employee-header {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5rem;
   align-items: center;
-  margin-bottom: 20px;
-  background-color: #FFAA00;
-  padding: 2px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-direction: row;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--accent-color);
 }
 
-.header h1 {
-  color: #171F5D;
-  font-size: 28px;
-  
-  margin: 0;
+.employee-title {
+  color: var(--primary-color);
+  font-size: 2rem;
   font-weight: 600;
-}
-
-/* Barre de recherche et filtres */
-.search-bar {
+  margin: 0;
   display: flex;
-  gap: 10px;
-  width: 50%;
-  height: auto;
-}
-.action-column-e{
-  display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 10px;
-}
-.search-bar input, .search-bar select {
-  padding: 10px;
-  border: 1px solid #D2D3D9;
-  border-radius: 4px;
-  width: 50%;
-  height: auto;
-  font-size: 14px;
+  gap: 0.75rem;
 }
 
-.search-bar input:focus, .search-bar select:focus {
-  border-color: #FFAA00;
+/* Barre de recherche */
+.search-container {
+  position: relative;
+  flex-grow: 1;
+  max-width: 260px;
+ 
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: all 0.3s;
+  background-color: var(--light-bg);
+}
+
+.search-input:focus {
   outline: none;
-  height: auto;
-
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(255, 170, 0, 0.2);
 }
 
-/* Bouton "Ajouter Employé" */
-.add-button {
-  background-color: #FFAA00;
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-color);
+}
+
+/* Filtres et boutons */
+.filter-selectedd{
+  min-width: 50px;
+}
+.filter-selectedd{
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--primary-color);
+  background-color: var(--light-bg);
+  border-radius: 50px;
+  font-size: 1rem;
+  width: 250px;
+  transition: all 0.3s;
+}
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.0rem 1.0rem;
+  
+  border-radius: 30px;
+  font-weight: 500;
+  
+  transition: all 0.3s;
+}
+
+.btn-primaryy {
+  background-color: var(--primary-color);
   color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  height: auto;
-  transition: background-color 0.3s;
+  border-radius: 50px;
 }
 
-.add-button:hover {
-  background-color: #e67e00;
+.btn-primaryy:hover {
+  background-color: #0f1542;
+  color: white;
 }
 
-/* Tableau des employés */
-.ant-table {
+.btn-accent {
+  background-color: #171F5D;
+  color: white;
+}
+
+.btn-accent:hover {
+  background-color: #e69900;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #171F5D;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #c0c1c7;
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.btn-danger:hover {
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  border: none;
+  color: #c82333;
 }
 
-.ant-table-thead > tr > th {
-  background-color: #D2D3D9;
-  color: #171F5D;
-  font-weight: 600;
-  text-align: center;
+/* Tableau */
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.ant-table-tbody > tr > td {
-  text-align: center;
-  color: #333;
-}
-
-.ant-table-row:hover {
-  background-color: #FFAA00;
+.employee-table th {
+  background-color: var(--primary-color);
   color: white;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: 500;
+  position: sticky;
+  top: 0;
+}
+
+.employee-table td {
+  padding: 0.8rem 0.8rem;
+  border-bottom: 1px solid var(--primary-color);
+  vertical-align: middle;
+}
+
+.employee-table tr:hover {
+  background-color: rgba(245, 243, 218, 0.2);
+}
+
+.employee-table tr:last-child td {
+  border-bottom: none;
 }
 
 /* Pagination */
-.ant-pagination {
+.pagination-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
-.ant-pagination-item {
-  border: 1px solid #D2D3D9;
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--secondary-color);
+  background-color: white;
+  color: var(--primary-color);
+  cursor: pointer;
   border-radius: 4px;
-  margin: 0 5px;
+  transition: all 0.3s;
 }
 
-.ant-pagination-item-active {
-  background-color: #171F5D;
-  border-color: #171F5D;
+.pagination button:hover {
+  background-color: var(--light-bg);
 }
 
-.ant-pagination-item-link {
-  color: #171F5D;
-}
-
-.ant-pagination-prev,
-.ant-pagination-next {
-  color: #171F5D;
-}
-
-/* Modale */
-.ant-modal-content {
-  border-radius: 8px;
-}
-
-.ant-modal-header {
-  background-color: #171F5D;
+.pagination button.active {
+  background-color: var(--primary-color);
   color: white;
-  font-weight: 600;
-  text-align: center;
+  border-color: var(--primary-color);
 }
 
-.ant-modal-body {
-  padding: 20px;
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.ant-modal-footer {
-  background-color: #F4F6F9;
-  border-top: 1px solid #D2D3D9;
+.modal-content {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 50%;
+  max-width: 450px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  gap: 10.5rem;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.modal-title {
+  color: var(--primary-color);
+  font-size: 15px;
+  height: 3rem;
+  width: 3000px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 10px;
+}
+
+/* .modal-closee {
+  background: none;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  width: 5rem;
+  height: 3rem;
+  padding:00;
+  color: var(--text-color);
+} */
+.modal-closee {
+  color: #0f1542;
+  padding-left: 10px;
+  cursor: pointer;
+}
+.modal-body {
+  margin-bottom: 1.0rem;
+}
+
+.form-group {
+  margin-bottom: 0.75rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(255, 170, 0, 0.2);
+}
+
+.modal-footer {
   display: flex;
   justify-content: flex-end;
+  gap: 0.75rem;
 }
 
-.ant-btn-primary {
-  background-color: #171F5D;
-  border: none;
-  font-weight: 600;
-}
-
-.ant-btn-primary:hover {
-  background-color: #0e1640;
-}
-
-.ant-btn-danger {
-  background-color: #e74c3c;
-  color: white;
-  font-weight: 600;
-}
-
-.ant-btn-danger:hover {
-  background-color: #c0392b;
-}
-
-/* Champs de formulaire dans la modale */
-.ant-input {
-  margin-bottom: 10px;
+/* Notifications */
+.notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem 1.5rem;
   border-radius: 4px;
-  padding: 10px;
-  border: 1px solid #D2D3D9;
-}
-
-.ant-input:focus {
-  border-color: #FFAA00;
-}
-
-input {
-  width: 100%;
-}
-
-/* Styles pour les boutons dans les actions */
-.action-buttons {
+  color: white;
   display: flex;
-  gap: 10px;
-  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  animation: slideIn 0.3s ease-out;
 }
 
-.action-buttons button {
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 14px;
+.notification-success {
+  background-color: var(--success-color);
 }
 
-.action-buttons .edit-button {
-  background-color: #FFAA00;
+.notification-error {
+  background-color: var(--danger-color);
+}
+
+.notification-warning {
+  background-color: var(--warning-color);
+  color: var(--text-color);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Import fichier */
+.file-import-container {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.75rem 1.25rem;
+  background-color: #171F5D;
   color: white;
+  border-radius: 30px;
+  transition: all 0.3s;
 }
 
-.action-buttons .delete-button {
-  background-color: #e74c3c;
-  color: white;
+.file-label:hover {
+  background-color: #c0c1c7;
+  color: #171F5D;
+}
+
+.file-name {
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--primary-color);
 }

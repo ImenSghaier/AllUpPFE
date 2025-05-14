@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOffres, createOffre, editOffre, removeOffre } from '../redux/actions/offreAction';
 import { Upload, Modal, Button, Form, Table, Input, Select } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined , TagsOutlined} from '@ant-design/icons';
 import './OffreComponent.css';
 import { Pencil, Trash } from 'lucide-react';
-
+import { PlusCircleOutlined } from '@ant-design/icons';
 const OffreComponent = () => {
     const dispatch = useDispatch();
     const { offres, totalPages, currentPage, loading } = useSelector(state => state.offre);
@@ -75,8 +75,13 @@ const OffreComponent = () => {
     };
 
     const handleDelete = (id) => {
-        dispatch(removeOffre(id));
-    };
+        Modal.confirm({
+            title: "Êtes-vous sûr de vouloir supprimer cet offre ?",
+            content: "Cette action est irréversible.",
+            okText: "Oui",
+            cancelText: "Annuler",
+            onOk: () =>dispatch(removeOffre(id)),
+    }); };
 
     const handleOpenModal = (offre = null) => {
         if (offre) {
@@ -115,13 +120,14 @@ const OffreComponent = () => {
 
     return (
         <div className="offres-container">
+            <h1> <TagsOutlined style={{ marginRight: '2px', fontSize: '27px', color: '#171F5D' }} /> Offres</h1>
             <div className="offres-header">
-                <h1>Offres</h1>
+                
                 <Input.Search 
-                    className="search-bar" 
+                    className="search-barf" 
                     placeholder="Rechercher" 
                     onSearch={(value) => setSearchQuery(value)} 
-                    style={{ marginBottom: '20px' }} 
+                    style={{ marginBottom: '5px' }} 
                 />
                 
                 {/* Filtre par catégorie */}
@@ -155,8 +161,9 @@ const OffreComponent = () => {
                     <Select.Option value="REDUCTION">Réduction</Select.Option>
                     <Select.Option value="PROMOTION">Promotion</Select.Option>
                 </Select>
-                <Button className="add-offre-btn" onClick={() => handleOpenModal()} style={{ marginBottom: '20px' }}>Ajouter Offre</Button>
-
+                <Button className="add-offre-btn" onClick={() => handleOpenModal()} style={{ marginBottom: '8px' }}>
+  <PlusCircleOutlined /> Ajouter Offre
+</Button>
             </div>
 
             <Table
@@ -168,7 +175,7 @@ const OffreComponent = () => {
                     { title: 'Catégorie ' ,dataIndex: 'categorie', key: 'categorie' },
                     { title: 'Prix après réduction', dataIndex: 'prix_apres_reduction', key: 'prix_apres_reduction' },
                     { title: 'Statut ', dataIndex: 'statut', key: 'statut' },
-                    { title: 'Type', dataIndex: 'type', key: 'type' },
+                 
                     { 
                         title: 'Date Fin', 
                         dataIndex: 'date_fin', 
@@ -188,10 +195,10 @@ const OffreComponent = () => {
                         key: 'actions',
                         render: (text, record) => (
                             <>  <div className="action-buttons">
-                                <Button className="edit-button" onClick={() => handleOpenModal(record)}>
+                                <Button className="edit-buttono" onClick={() => handleOpenModal(record)}>
                                 <Pencil size={18} />
                                 </Button>
-                                <Button className="delete-button" onClick={() => handleDelete(record._id)}>
+                                <Button className="delete-buttono" onClick={() => handleDelete(record._id)}>
                                 <Trash size={18} />
                                 </Button></div> </>
                         ),
@@ -289,69 +296,3 @@ const OffreComponent = () => {
 };
 
 export default OffreComponent;
-{/* <Modal
-                className="custom-modal"
-                title={modalTitle}
-                open={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                footer={[
-                    <Button key="cancel" onClick={() => setIsModalVisible(false)}>
-                        Annuler
-                    </Button>,
-                    <Button key="submit" type="primary" onClick={handleAddOrEdit}>
-                        {buttonText}
-                    </Button>
-                ]}
-            >
-                <Form layout="vertical">
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                        <Form.Item label="Titre">
-                            <Input name="titre" value={formData.titre} onChange={handleChange} />
-                        </Form.Item>
-                        <Form.Item label="Description">
-                            <Input name="description" value={formData.description} onChange={handleChange} />
-                        </Form.Item>
-                        <Form.Item label="Prix">
-                            <Input name="prix" type="number" value={formData.prix} onChange={handleChange} />
-                        </Form.Item>
-                        <Form.Item label="Réduction (%)">
-                            <Input name="pourcentage_reduction" type="number" value={formData.pourcentage_reduction} onChange={handleChange} />
-                        </Form.Item>
-                        <Form.Item label="Type">
-                            <Select name="type" value={formData.type} onChange={value => setFormData({ ...formData, type: value })}>
-                                <Select.Option value="REDUCTION">Réduction</Select.Option>
-                                <Select.Option value="PROMOTION">Promotion</Select.Option>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item label="Catégorie">
-                            <Select name="categorie" value={formData.categorie} onChange={value => setFormData({ ...formData, categorie: value })}>
-                                <Select.Option value="Hotels & vacations">Hotels & vacations</Select.Option>
-                                <Select.Option value="Shopping">Shopping</Select.Option>
-                                <Select.Option value="Santé & bien-être">Santé & bien-être</Select.Option>
-                                <Select.Option value="Restaurant & lounge">Restaurant & lounge</Select.Option>
-                                <Select.Option value="Formation & workshop">Formation & workshop</Select.Option>
-                                <Select.Option value="Transports">Transports</Select.Option>
-                                <Select.Option value="Événements & loisirs">Événements & loisirs</Select.Option>
-                                <Select.Option value="Culture">Culture</Select.Option>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item label="Date de début">
-                            <Input name="date_debut" type="date" value={formData.date_debut} onChange={handleChange} />
-                        </Form.Item>
-                        <Form.Item label="Date de fin">
-                            <Input name="date_fin" type="date" value={formData.date_fin} onChange={handleChange} />
-                        </Form.Item>
-                        <Form.Item label="Image">
-                            <Upload
-                                customRequest={({ file, onSuccess }) => {
-                                    setFormData({ ...formData, image: file });
-                                    onSuccess();
-                                }}
-                                showUploadList={false}
-                            >
-                                <Button icon={<UploadOutlined />}>Sélectionner une image</Button>
-                            </Upload>
-                        </Form.Item>
-                    </div>
-                </Form>
-            </Modal> */}

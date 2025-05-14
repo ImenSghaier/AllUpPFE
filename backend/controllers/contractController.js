@@ -1,9 +1,99 @@
 const Contract = require("../models/contract"); 
 const Utilisateur = require('../models/utilisateur');
+const cron = require('node-cron'); 
 // 🔵 Socket.io (On le configure dans server.js)
 let io;
 const setSocketIo = (socketIoInstance) => {
   io = socketIoInstance;
+};
+const Offre = require("../models/offre");
+
+// 🟡 Employé : Voir les offres actives de son entreprise (via les contrats actifs)
+exports.getActiveOffersForEmploye = async (req, res) => {
+  try {
+    const idEntreprise = req.user.id_entreprise;
+
+    if (!idEntreprise) {
+      return res.status(400).json({ message: "Employé non lié à une entreprise." });
+    }
+
+    // Trouver les contrats ACTIF pour cette entreprise
+    const contratsActifs = await Contract.find({
+      id_entreprise: idEntreprise,
+      statut: "ACTIF"
+    });
+
+    // Extraire les IDs des offres
+    const offresIds = contratsActifs.map(contrat => contrat.id_offre);
+
+    // Récupérer les offres correspondantes
+    const offres = await Offre.find({
+      _id: { $in: offresIds },
+      // statut: "ACTIF"  // facultatif si tu veux t'assurer que l'offre est active
+    });
+    console.log("Contrats actifs trouvés :", contratsActifs);
+    console.log("ID entreprise :", idEntreprise);
+
+    res.status(200).json(offres);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+// exports.getNonActiveContractOffersForEmploye = async (req, res) => {
+//   try {
+//     const idEntreprise = req.user.id_entreprise;
+
+//     if (!idEntreprise) {
+//       return res.status(400).json({ message: "Employé non lié à une entreprise." });
+//     }
+
+//     // 🔍 Trouver les contrats ACTIFS de cette entreprise
+//     const contratsActifs = await Contract.find({
+//       id_entreprise: idEntreprise,
+//       statut: "ACTIF"
+//     });
+
+//     // 🔁 Extraire les IDs des offres liées à cette entreprise
+//     const offresLieesIds = contratsActifs.map(contrat => contrat.id_offre);
+
+//     // ❌ Récupérer les offres actives qui ne sont PAS liées par contrat actif à cette entreprise
+//     const offres = await Offre.find({
+//       _id: { $nin: offresLieesIds },  // "$nin" = NOT IN
+//       //  // facultatif si tu veux filtrer uniquement les offres actives
+//     });
+
+//     res.status(200).json(offres);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+// 🟡 Employé : Voir les offres NON actives (pas sélectionnées dans un contrat actif de son entreprise)
+exports.getInactiveOffersForEmploye = async (req, res) => {
+  try {
+    const idEntreprise = req.user.id_entreprise;
+
+    if (!idEntreprise) {
+      return res.status(400).json({ message: "Employé non lié à une entreprise." });
+    }
+
+    // Trouver les contrats ACTIFS pour cette entreprise
+    const contratsActifs = await Contract.find({
+      id_entreprise: idEntreprise,
+      statut: "ACTIF"
+    });
+
+    // Extraire les IDs des offres qui SONT dans des contrats actifs
+    const offresActivesIds = contratsActifs.map(contrat => contrat.id_offre);
+
+    // Récupérer toutes les offres QUI NE SONT PAS dans les contrats actifs
+    const offresInactives = await Offre.find({
+      _id: { $nin: offresActivesIds }  // <-- important : $nin = "non inclus"
+    });
+
+    res.status(200).json(offresInactives);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // 🟢 AdminEntreprise : Créer un contrat
@@ -47,14 +137,6 @@ exports.getSentContracts = async (req, res) => {
   try {
     const { id_entreprise } = req.user;  // Utiliser l'id_entreprise depuis `req.user`
     const contracts = await Contract.find({ id_entreprise }).populate("id_fournisseur id_offre");
-// // Vérification des contrats pour changer leur statut à EXPIRE si la date est dépassée
-// contracts = contracts.map(contract => {
-//   if (contract.statut === "ACTIF" && new Date(contract.date_fin) < new Date()) {
-//     contract.statut = "EXPIRE";
-//     contract.save();  // Sauvegarder le contrat mis à jour
-//   }
-//   return contract;
-// });
 
     res.status(200).json(contracts);
   } catch (error) {
@@ -67,48 +149,20 @@ exports.getReceivedContracts = async (req, res) => {
   try {
     const { id_fournisseur } = req.params;
     const contracts = await Contract.find({ id_fournisseur }).populate("id_entreprise id_offre");
-    //  // Vérification des contrats pour changer leur statut à EXPIRE si la date est dépassée
-    //  contracts = contracts.map(contract => {
-    //   if (contract.statut === "ACTIF" && new Date(contract.date_fin) < new Date()) {
-    //     contract.statut = "EXPIRE";
-    //     contract.save();  // Sauvegarder le contrat mis à jour
-    //   }
-    //   return contract;
-    // });
     res.status(200).json(contracts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
-// // 🔵 Fournisseur : Valider ou refuser un contrat
-// exports.validateContract = async (req, res) => {
-//   try {
-//     const { contractId } = req.params;
-//     const { statut } = req.body; // "ACTIF" ou "Refusé"
-
-//     if (!["ACTIF", "REFUSÉ"].includes(statut)) {
-//       return res.status(400).json({ message: "Statut invalide" });
-//     }
-
-//     const contract = await Contract.findByIdAndUpdate(contractId, { statut }, { new: true });
-
-//     if (!contract) {
-//       return res.status(404).json({ message: "Contrat non trouvé" });
-//     }
-    
-//     if (io) {
-//       io.to(contract.id_entreprise.toString()).emit("contractUpdated", contract);
-//     }
-
-//     res.status(200).json({ message: "Contrat mis à jour", contract });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
-
-
+cron.schedule('0 0 * * *', async () => { 
+    try {
+        const now = new Date();
+        await Contract.updateMany({ date_fin: { $lt: now } }, { $set: { statut: "EXPIRÉ" } });
+        console.log("Mise à jour des statuts des contrats expirées.");
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour automatique des statuts :", error);
+    }
+});
 
 exports.validateContract = async (req, res) => {
   try {
@@ -143,10 +197,6 @@ exports.validateContract = async (req, res) => {
       });
     }
 
-    // // Notifier aussi l’entreprise via sa room si configurée
-    // if (io) {
-    //   io.to(contract.id_entreprise.toString()).emit("contractUpdated", contract);
-    // }
 
     res.status(200).json({ message: "Contrat mis à jour", contract });
 

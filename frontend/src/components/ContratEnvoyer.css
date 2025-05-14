@@ -1,94 +1,345 @@
+/* ContratEnvoyer.css */
+
 .sent-contracts-container {
-  background-color: white;
-  padding: 0px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 0.3rem auto;
+  padding: 1rem;
+  background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(23, 31, 93, 0.1);
-  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 10px 30px rgba(23, 31, 93, 0.1);
+  border: 1px solid rgba(210, 211, 217, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+.contract-icon {
   color: #171F5D;
-  max-width: 100%;
-  margin: auto;
+  margin-right: 12px;
+  font-size: 1.8rem;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+}
+
+h2:hover .contract-icon {
+  transform: rotate(-15deg) scale(1.1);
+}
+.sent-contracts-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #FFAA00, #171F5D);
 }
 
 .sent-contracts-container h2 {
-  text-align: center;
   color: #171F5D;
+  text-align: center;
   margin-bottom: 2rem;
-  font-size: 28px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  position: relative;
+  padding-bottom: 1rem;
 }
 
+.sent-contracts-container h2::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #FFAA00, #171F5D);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* Filtres */
 .filter-container {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  margin-top: -2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: rgba(210, 211, 217, 0.2);
+  border-radius: 30px;
 }
 
 .filter-container button {
   background: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  padding: 0.8rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 80px;
+  position: relative;
+  background: white;
+  box-shadow: 0 2px 8px rgba(23, 31, 93, 0.1);
 }
 
 .filter-container button:hover {
-  transform: scale(1.2);
-  background: none;  
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(23, 31, 93, 0.15);
 }
 
+.filter-container button::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: -25px;
+  font-size: 0.75rem;
+  color: #171F5D;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.filter-container button:hover::after {
+  opacity: 1;
+}
+
+/* Tableau */
 .contracts-table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1.5rem;
-  background-color: #fff;
-  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5rem 0;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(23, 31, 93, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(23, 31, 93, 0.08);
 }
 
-.contracts-table th,
-.contracts-table td {
-  padding: 0.75rem 1rem;
-  text-align: center;
-  border-bottom: 1px solid #D2D3D9;
-  font-size: 14px;
+.contracts-table thead tr {
+  background: linear-gradient(90deg, #171F5D, #0f1542);
+  color: white;
+  text-align: left;
 }
 
 .contracts-table th {
-  background-color: #D2D3D9;
-  color: #171F5D;
+  padding: 1.2rem 1rem;
   font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.contracts-table th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.contracts-table th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.contracts-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(210, 211, 217, 0.5);
+  vertical-align: middle;
+}
+
+.contracts-table tbody tr {
+  transition: all 0.3s ease;
+  background: white;
 }
 
 .contracts-table tbody tr:hover {
-  background-color: #F9F9FB;
+  background: rgba(255, 170, 0, 0.05);
+  transform: translateX(4px);
 }
 
+.contracts-table tbody tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.contracts-table tbody tr:nth-child(even):hover {
+  background: rgba(255, 170, 0, 0.05);
+}
+
+/* Styles pour les statuts */
+.status-en_attente {
+  color: #FFAA00;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-actif {
+  color: #4CAF50;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-refusé {
+  color: #F44336;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-expiré {
+  color: #FF9800;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
 }
 
 .pagination button {
-  background-color: #FFAA00;
-  color: #171F5D;
+  padding: 0.8rem 1.8rem;
+  background-color: #171F5D;
+  color: white;
   border: none;
-  padding: 0.5rem 1rem;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(23, 31, 93, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #FFAA00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 170, 0, 0.3);
 }
 
 .pagination button:disabled {
   background-color: #D2D3D9;
   cursor: not-allowed;
-  color: #999;
+  transform: none;
+  box-shadow: none;
 }
 
 .pagination span {
-  font-weight: bold;
-  font-size: 16px;
+  font-weight: 600;
   color: #171F5D;
+  font-size: 1.1rem;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Messages d'état */
+.sent-contracts-container > p {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(210, 211, 217, 0.2);
+  border-radius: 10px;
+}
+
+/* Animation de chargement */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  border: 4px solid rgba(210, 211, 217, 0.3);
+  border-top: 4px solid #FFAA00;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 3rem auto;
+}
+
+/* Icônes dans les cellules */
+.contracts-table td:has(> svg) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Signature */
+.signature-true {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.signature-false {
+  color: #F44336;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .contracts-table {
+      display: block;
+      overflow-x: auto;
+  }
+  
+  .sent-contracts-container {
+      padding: 1.5rem;
+      margin: 1rem;
+  }
+  
+  .filter-container {
+      gap: 1rem;
+  }
+  
+  .filter-container button {
+      padding: 0.6rem;
+      min-width: 70px;
+  }
+  
+  .filter-container button svg {
+      width: 24px;
+      height: 24px;
+  }
+  
+  .pagination {
+      flex-direction: column;
+      gap: 1rem;
+  }
+  
+  .pagination button {
+      width: 100%;
+      justify-content: center;
+  }
+}
+
+/* Effets supplémentaires */
+.contracts-table tbody tr {
+  position: relative;
+}
+
+.contracts-table tbody tr::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.contracts-table tbody tr:hover::after {
+  background: #FFAA00;
 }

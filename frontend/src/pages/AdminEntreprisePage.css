@@ -9,15 +9,6 @@
 }
 
 /* Barre de navigation en haut */
-.topbar {
-    width: 100%;
-    background-color: #171F5D; /* Bleu foncé */
-    color: #FFAA00; /* Jaune */
-    text-align: center;
-    font-size: 24px;
-    padding: 12px 0;
-    font-weight: bold;
-}
 
 /* Conteneur avec la barre latérale et le contenu */
 .main-content {
@@ -53,51 +44,62 @@
 .nav-menu {
     display: flex;
     flex-direction: column;
+    gap: 10px; /* Espacement entre les boutons */
 }
 
-/* Boutons de navigation dans la barre latérale */
-.nav-button {
-    text-align: left;
-    color: #171F5D;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-    padding: 12px 20px;
-}
 
-.nav-button:hover, .nav-button.active {
-    background-color: #FFAA00; /* Jaune */
-    color: #171F5D; /* Bleu foncé */
-    font-weight: bold;
-}
 
+/* Bouton de déconnexion */
 /* Bouton de déconnexion */
 .logout-button {
     text-align: left;
-    color: #171F5D;
-    background: none;
-    border: none;
+ 
+    background-color: #D2D3D9; /* Jaune */
+    color: #171F5D; /* Bleu foncé */
+    border: 1px solid #171F5D;
     font-size: 18px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
     margin-top: auto;
     padding: 12px 20px;
+    margin-bottom: 20px; /* Ajout d'une marge en bas pour espacer du bas de la barre latérale */
 }
 
 .logout-button:hover {
+    color: #FFAA00;
+    background-color: #171F5D;
+    border: 1px solid #FFAA00;
+    border-radius: 20px;
+}
+/* Boutons de navigation dans la barre latérale */
+.nav-button {
+    text-align: left;
+    color: #171F5D;
+   
+    background: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    padding: 12px 20px;
+  }
+  
+  .nav-button:hover {
+    background-color: #D2D3D9; /* Jaune */
+    color: #FFAA00; /* Bleu foncé */
+    font-weight: bold;
+    border: 1px solid #FFAA00;
+  }
+  .nav-button.active {
     background-color: #FFAA00; /* Jaune */
     color: #171F5D; /* Bleu foncé */
-}
+    font-weight: bold;
+    border: 1px solid #171F5D;
+  }
 
 /* Contenu principal (à droite de la barre latérale) */
-.content {
-    margin-left: 250px;
-    flex-grow: 1;
-    padding: 20px;
-    background: #F2F2F2; /* Gris clair pour un contraste agréable */
-}
+
 
 /* Zone de contenu avec une couleur de fond élégante */
 .content-box {

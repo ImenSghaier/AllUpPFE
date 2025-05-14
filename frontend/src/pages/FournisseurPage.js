@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";  // Importation de socket.io-client
@@ -11,9 +8,10 @@ import "./FournisseurDashboard.css";
 import OffreComponent from "../components/OffreComponent";
 import ContractsRecusComponent from "../components/ContractsRecusComponent";
 import logo from './logo-all-up.png'; 
+import TopBar from "../components/TopBar";
 
 // Connexion au serveur WebSocket
-const socket = io("http://localhost:4000"); // Remplace par l'URL de ton backend
+const socket = io("http://localhost:4000"); 
 
 const FournisseurPage = () => {
   const [activeTab, setActiveTab] = useState("offres");
@@ -39,10 +37,7 @@ const FournisseurPage = () => {
   return (
     <div className="fournisseur-container">
       {/* Barre de navigation en haut (top bar) */}
-      <div className="topbar">
-        <h1>Tableau de bord Fournisseur</h1>
-      
-      </div>
+     
 
       {/* Barre latérale */}
       <div className="sidebar">
@@ -75,6 +70,8 @@ const FournisseurPage = () => {
 
       {/* Contenu principal */}
       <div className="content">
+ 
+      <TopBar content="Espace Fournisseur" /> {/* Utilisation de la barre de navigation personnalisée */}
         <div className="content-box">
           {activeTab === "offres" && <OffreComponent />}
           {activeTab === "contrats" && <ContractsRecusComponent />}

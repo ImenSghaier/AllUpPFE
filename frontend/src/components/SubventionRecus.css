@@ -1,0 +1,189 @@
+/* Palette moderne : bleu pastel + blanc + gris */
+:root {
+    --primary-color: #FFAA00;     /* Indigo */
+    --secondary-color: #6366f1;
+    --danger-color: #C62828;      /* Rouge */
+    --success-color: #2E7D32;     /* Vert */
+    --warning-color: #f59e0b;     /* Orange */
+    --light-bg: #f9fafb;
+    --text-color: #011F5B;
+    --border-color: #e5e7eb;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    --radius: 12px;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: var(--light-bg);
+    font-family: var(--font-family);
+    color: var(--text-color);
+  }
+  
+  /* Container principal */
+  .subvention-container {
+    max-width: 1200px;
+    /* margin: 40px auto; */
+    padding: 0px;
+    background-color: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Titre */
+  .subvention-container h2 {
+    font-size: 28px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+  }
+  
+  /* Tableau */
+  .subvention-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .subvention-table th,
+  .subvention-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+  }
+  
+  .subvention-table thead {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .subvention-table tr:hover {
+    background-color: #f3f4f6;
+    transition: background-color 0.2s;
+  }
+  
+  /* Boutons */
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn.approve {
+    background-color: var(--success-color);
+    color: white;
+    margin-right: 5px;
+  }
+  
+  .btn.reject {
+    background-color: var(--danger-color);
+    color: white;
+  }
+  
+  .btn.approve:hover {
+    background-color: #059669;
+  }
+  
+  .btn.reject:hover {
+    background-color: #dc2626;
+  }
+  
+  /* Statuts colorés */
+  .statut.en_attente {
+    color: var(--warning-color);
+    font-weight: bold;
+  }
+  
+  .statut.approuvée {
+    color: var(--success-color);
+    font-weight: bold;
+  }
+  
+  .statut.rejetée {
+    color: var(--danger-color);
+    font-weight: bold;
+  }
+  
+  /* Messages d'état */
+  .error {
+    color: var(--danger-color);
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .subvention-table th,
+    .subvention-table td {
+      padding: 10px 6px;
+      font-size: 13px;
+    }
+  
+    .btn {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+  
+    .subvention-container {
+      padding: 20px 15px;
+    }
+  }
+  .filter-container {
+    margin-bottom: 10px;
+    margin-top: 3px;
+  }
+  
+  .filter-btn {
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 2px solid #011F5B;
+    cursor: pointer;
+    flex-direction: row;
+    background-color: white;
+    color: #011F5B;
+    border-radius: 30px;
+  }
+  
+  .filter-btn.active {
+    background-color: white;
+    color: #011F5B;
+    border: 2px solid #011F5B;
+  }
+  
+  .page-btn {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: white;
+  }
+  
+  .page-btn.active {
+    background-color: #f0f0f0;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  

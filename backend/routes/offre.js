@@ -157,17 +157,17 @@ router.get('/all', verifyToken, async (req, res) => {
 });
 
 // Route pour récupérer une offre par son ID
-router.get('/byid/:id', verifyToken, async (req, res) => {
-    try {
-        const offre = await Offre.findOne({ _id: req.params.id, id_fournisseur: req.user._id }); // Vérifier que l'offre appartient au fournisseur
-        if (!offre) {
-            return res.status(404).send({ message: "Offre non trouvée ou accès interdit" });
-        }
-        res.send(offre);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-});
+// router.get('/byid/:id', verifyToken, async (req, res) => {
+//     try {
+//         const offre = await Offre.findOne({ _id: req.params.id, id_fournisseur: req.user._id }); // Vérifier que l'offre appartient au fournisseur
+//         if (!offre) {
+//             return res.status(404).send({ message: "Offre non trouvée ou accès interdit" });
+//         }
+//         res.send(offre);
+//     } catch (error) {
+//         res.status(400).send(error);
+//     }
+// });
 
 // 🟢 Route pour supprimer une offre (seulement pour le fournisseur propriétaire de l'offre)
 router.delete('/delete/:id', verifyToken, async (req, res) => {

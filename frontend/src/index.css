@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+
+.topbar {
+  background: linear-gradient(to right,#FFAA00,#D2D3D9, #171F5D);
+/* Bleu foncé */
+  color: #171F5D; /* Jaune */
+  text-align: left;
+  font-size: 24px;
+  font-style: italic;
+  padding: 12px 0;
+  font-weight: bold;
+  width: 100%;
+position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 10px 20px;
+}
+
+.content {
+  margin-left: 250px;
+  flex-grow: 1;
+  background: #F2F2F2; /* Gris clair pour un contraste agréable */
+  position: relative;
+}
