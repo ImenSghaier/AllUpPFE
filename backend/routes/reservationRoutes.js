@@ -7,9 +7,13 @@ router.post("/nvReservation", reservationController.createReservation);
 
 // Route pour récupérer les réservations d’un employé
 router.get("/employe/:id_employe", reservationController.getReservationsByEmploye);
+
 // Route pour confirmer une réservation (scan QRCode)
 router.put("/confirmer/:reservationId", reservationController.confirmReservation);
 
 // Route pour récupérer les réservations par offre
 router.get("/offre/:id_offre", reservationController.getReservationsByOffre);
+
+// Dans le fichier de routes
+router.get("/employe/:id_employe/confirmees", reservationController.getReservationsConfirmeesByEmploye);
 module.exports = router;

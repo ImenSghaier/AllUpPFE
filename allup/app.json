@@ -3,11 +3,13 @@
     "name": "allup",
     "plugins": [
       [
-        "expo-barcode-scanner",
+        "expo-camera",
         {
-          "cameraPermission": "Besoin d'accéder à votre caméra pour scanner les codes QR"
+          "cameraPermission": "Allow user to access your camera",
+          "microphonePermission": "Allow user to access your microphone",
+          "recordAudioAndroid": true
         }
-      ]
+   ]
     ],
     "slug": "snack-00712a00-eeef-4252-843c-dbefb5f751dc",
     "version": "1.0.0",

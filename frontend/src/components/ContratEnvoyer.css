@@ -36,7 +36,7 @@ h2:hover .contract-icon {
 .sent-contracts-container h2 {
   color: #171F5D;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 2.2rem;
   font-weight: 700;
   display: flex;
@@ -63,7 +63,7 @@ h2:hover .contract-icon {
   justify-content: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  margin-top: -2rem;
+  margin-top: -4rem;
   flex-wrap: wrap;
   padding: 1rem;
   background: rgba(210, 211, 217, 0.2);
@@ -78,7 +78,7 @@ h2:hover .contract-icon {
   border-radius: 12px;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 0.5rem;
   min-width: 80px;
@@ -115,7 +115,7 @@ h2:hover .contract-icon {
   margin: 1.5rem 0;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(23, 31, 93, 0.08);
+  box-shadow: 0 5px 15px #171f5d14;
 }
 
 .contracts-table thead tr {
@@ -125,11 +125,12 @@ h2:hover .contract-icon {
 }
 
 .contracts-table th {
-  padding: 1.2rem 1rem;
+  padding: 0.5rem 0.5rem;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 0.5px;
+  background-color: #FFAA00;
 }
 
 .contracts-table th:first-child {

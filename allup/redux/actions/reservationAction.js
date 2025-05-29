@@ -64,3 +64,18 @@ export const getReservationsByOffreAction = (id_offre) => async (dispatch) => {
     });
   }
 };
+
+export const getReservationsConfirmeesByEmployeAction = (id_employe) => async (dispatch) => {
+  try {
+    const reservations = await reservationService.getReservationsConfirmeesByEmploye(id_employe);
+    dispatch({
+      type: 'GET_CONFIRMED_RESERVATIONS_BY_EMPLOYE_SUCCESS',
+      payload: reservations
+    });
+  } catch (error) {
+    dispatch({
+      type: 'GET_CONFIRMED_RESERVATIONS_BY_EMPLOYE_FAIL',
+      payload: error.message
+    });
+  }
+};

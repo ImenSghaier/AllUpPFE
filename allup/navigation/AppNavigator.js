@@ -12,6 +12,8 @@ import DetailsOffreInactive from "../screens/DetailsOffreInactive";
 import FormulaireDemande from "../screens/FormulaireDemande";
 import QRCode from "../screens/QRCode";
 import MesOffres from "../screens/MesOffres";
+import EmployeProfil from "../screens/EmployeProfil";
+import VoteDetailsScreen from "../screens/VoteDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +32,10 @@ const AppNavigator = () => {
         <Stack.Screen name="QRCode" component={QRCode} />
         <Stack.Screen name="MesOffres" component={MesOffres} />
         <Stack.Screen name="EmployeScreen" component={EmployeScreen} />
+        <Stack.Screen name="profil" component={EmployeProfil} />
+        <Stack.Screen name="VoteDetails" component={VoteDetailsScreen} />
+
+        
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -60,17 +60,26 @@ export default function TopBar() {
         <View style={styles.menuContainer}>
           <Text style={styles.menuTitle}>Menu</Text>
 
-          <TouchableOpacity style={styles.menuItemRow}>
-            <Ionicons name="person-outline" size={22} color="#081b4e" style={styles.menuIcon} />
-            <Text style={styles.menuText}>Profil</Text>
-          </TouchableOpacity>
+          <TouchableOpacity 
+  style={styles.menuItemRow}
+  onPress={() => {
+    navigation.navigate('profil');
+  }}
+  activeOpacity={0.7}
+>
+  <View style={styles.menuItemContent}>
+    <Ionicons 
+      name="person-outline" 
+      size={22} 
+      color="#081b4e" 
+      style={styles.menuIcon} 
+    />
+    <Text style={styles.menuText}>Profil</Text>
+  </View>
+  <Ionicons name="chevron-forward" size={18} color="#081b4e" />
+</TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItemRow}>
-            <Ionicons name="settings-outline" size={22} color="#081b4e" style={styles.menuIcon} />
-            <Text style={styles.menuText}>Paramètres</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.menuItemRow} onPress={handleLogout}>
+          <TouchableOpacity style={styles.menuItemRowd} onPress={handleLogout}>
             <Ionicons name="log-out-outline" size={22} color="#081b4e" style={styles.menuIcon} />
             <Text style={styles.menuText}>Se déconnecter</Text>
           </TouchableOpacity>
@@ -108,6 +117,29 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: 'rgba(0,0,0,0.4)',
   },
+  menuItemRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    marginVertical: 5,
+    borderRadius: 10,
+    backgroundColor: '#f5f7fa',
+  },
+  menuItemContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  menuIcon: {
+    marginRight: 15,
+    width: 24,
+  },
+  menuText: {
+    fontSize: 16,
+    color: '#081b4e',
+    fontWeight: '500',
+  },
   menuContainer: {
     position: 'absolute',
     top: 0,
@@ -130,6 +162,14 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
+  },
+  menuItemRowd: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    
   },
   menuIcon: {
     marginRight: 10,

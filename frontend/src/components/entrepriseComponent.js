@@ -191,7 +191,7 @@ const EntrepriseComponent = () => {
             <h3 className='h3E'>{isEditing ? 'Modifier' : 'Ajouter'} une entreprise</h3>
             <form className="entreprise-form" onSubmit={handleAddEditSubmit}>
               <div className="form-group">
-                <label htmlFor="nom">Nom de l'entreprise</label>
+                <label className="label" htmlFor="nom">Nom de l'entreprise</label>
                 <input
                   id="nom"
                   type="text"
@@ -202,7 +202,7 @@ const EntrepriseComponent = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label className="label" htmlFor="email">Email</label>
                 <input
                   id="email"
                   type="email"
@@ -213,7 +213,7 @@ const EntrepriseComponent = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="adresse">Adresse</label>
+                <label className="label" htmlFor="adresse">Adresse</label>
                 <input
                   id="adresse"
                   type="text"
@@ -224,7 +224,7 @@ const EntrepriseComponent = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="telephone">Téléphone</label>
+                <label className="label" htmlFor="telephone">Téléphone</label>
                 <input
                   id="telephone"
                   type="text"

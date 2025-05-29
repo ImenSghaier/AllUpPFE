@@ -1,6 +1,7 @@
 const initialState = {
   reservation: null,
   reservations: [],
+  confirmedReservations: [], 
   reservationsByOffre: [],
   error: null,
 };
@@ -51,6 +52,18 @@ const reservationReducer = (state = initialState, action) => {
           ...state,
           error: action.payload,
         };
+        case 'GET_CONFIRMED_RESERVATIONS_BY_EMPLOYE_SUCCESS':
+          return {
+            ...state,
+            confirmedReservations: action.payload,
+            error: null,
+          };
+        case 'GET_CONFIRMED_RESERVATIONS_BY_EMPLOYE_FAIL':
+          return {
+            ...state,
+            error: action.payload,
+          };
+          
       default:
         return state;
     }

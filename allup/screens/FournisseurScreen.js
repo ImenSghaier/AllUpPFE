@@ -5,6 +5,7 @@ import TopBar from '../components/TopBar';
 import FournisseurOffres from './FournisseurOffres';
 import FournisseurContrats from './FournisseurContrats';
 import ScannerQRCode from './ScannerQRCode';
+import EmployeProfil from './EmployeProfil';
 
 export default function FournisseurScreen() {
   const [selectedTab, setSelectedTab] = useState('offres');
@@ -17,6 +18,8 @@ export default function FournisseurScreen() {
         return <FournisseurContrats />;
       case 'scanner':
         return <ScannerQRCode />;
+      case 'profil':
+        return <EmployeProfil />;
       default:
         return <FournisseurOffres />;
     }
@@ -30,6 +33,7 @@ export default function FournisseurScreen() {
         <Tab icon="pricetags" label="Offres" onPress={() => setSelectedTab('offres')} active={selectedTab === 'offres'} />
         <Tab icon="document-text" label="Contrats" onPress={() => setSelectedTab('contrats')} active={selectedTab === 'contrats'} />
         <Tab icon="qr-code-outline" label="Scan QR" onPress={() => setSelectedTab('scanner')} active={selectedTab === 'scanner'} />
+        <Tab icon="person" label="Profil" onPress={() => setSelectedTab('profil')} active={selectedTab === 'profil'} />
       </View>
     </View>
   );

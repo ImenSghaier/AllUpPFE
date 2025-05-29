@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export const url = "http://192.168.126.205:4000";
+export const url = "http://192.168.96.205:4000";
 
 export async function refreshToken() {
   

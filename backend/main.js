@@ -8,13 +8,13 @@ const socketIo = require("socket.io");
 const userRoute = require("./routes/utilisateur");
 const offreRoute = require("./routes/offre");
 const reservationRoute = require("./routes/reservationRoutes");
-const voteEmployeRoute = require("./routes/voteEmploye");
+// const voteEmployeRoute = require("./routes/voteEmploye");
 const entrepriseRoute = require("./routes/entreprise");
 const DOERoute = require("./routes/demandeRoutes");
 const contractRoute = require("./routes/contractRoutes");
 const contractController = require("./controllers/contractController");
 const statsRouter = require('./routes/stats');
-
+const voteRouter = require('./routes/voteEmploye');
 // Schémas Mongoose
 const Utilisateur = require('./models/utilisateur');
 const Offre = require('./models/offre');
@@ -113,13 +113,13 @@ app.use("/uploads", express.static("./uploads"));
 app.use("/offre", offreRoute);
 app.use("/user", userRoute);
 app.use("/reservation", reservationRoute);
-app.use("/voteEmploye", voteEmployeRoute);
+// app.use("/voteEmploye", voteEmployeRoute);
 
 app.use("/entreprise", entrepriseRoute);
 app.use("/demande", DOERoute);
 app.use("/contract", contractRoute);
 app.use('/api/stats', statsRouter);
-
+app.use('/vote', voteRouter);
 // Lancement du serveur
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {

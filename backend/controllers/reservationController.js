@@ -39,7 +39,7 @@ exports.confirmReservation = async (req, res) => {
         
         const updatedReservation = await Reservation.findByIdAndUpdate(
             reservationId,
-            { statut: "CONFIRMEE" },
+            { statut: "CONFIRMÉE" },
             { new: true }
         ).populate("id_offre").populate("id_employe");
 
@@ -69,6 +69,26 @@ exports.getReservationsByOffre = async (req, res) => {
     } catch (error) {
         res.status(500).json({ 
             message: "Erreur lors de la récupération des réservations", 
+            error 
+        });
+    }
+};
+
+exports.getReservationsConfirmeesByEmploye = async (req, res) => {
+    try {
+        const { id_employe } = req.params;
+
+        const reservations = await Reservation.find({ 
+            id_employe,
+            statut: "CONFIRMÉE"
+        })
+        .populate("id_offre")
+        .populate("id_employe", "nom email");
+
+        res.status(200).json(reservations);
+    } catch (error) {
+        res.status(500).json({ 
+            message: "Erreur lors de la récupération des réservations confirmées", 
             error 
         });
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { 
   View, 
   Text, 
@@ -258,17 +258,22 @@ const FournisseurContrats = ({ navigation }) => {
     }
   };
 
-  const filteredContrats = receivedContracts
-    .filter((contrat) => {
-      if (filtreStatut === "TOUS") return true;
-      return contrat.statut?.toUpperCase() === filtreStatut;
-    })
-    .filter((contrat) => {
-      const entreprise = contrat.id_entreprise?.nom?.toLowerCase() || "";
-      const offre = contrat.id_offre?.titre?.toLowerCase() || "";
-      return entreprise.includes(searchTerm.toLowerCase()) || offre.includes(searchTerm.toLowerCase());
-    })
-    .sort((a, b) => new Date(b.date_debut) - new Date(a.date_debut));
+   // Memoized filtering + sorting
+   const filteredContrats = useMemo(() => {
+    // 1. Status filter
+    let list = receivedContracts.filter(c =>
+      filtreStatut === "TOUS" || c.statut?.toUpperCase() === filtreStatut
+    );
+    // 2. Search filter
+    const term = searchTerm.toLowerCase();
+    list = list.filter(c => {
+      const ent = c.id_entreprise?.nom?.toLowerCase() || "";
+      const off = c.id_offre?.titre?.toLowerCase()  || "";
+      return ent.includes(term) || off.includes(term);
+    });
+    // 3. Clone + sort by date_debut desc
+    return [...list].sort((a, b) => new Date(b.date_debut) - new Date(a.date_debut));
+  }, [receivedContracts, filtreStatut, searchTerm]);
 
   const onRefresh = async () => {
     setRefreshing(true);

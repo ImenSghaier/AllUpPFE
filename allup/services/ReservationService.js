@@ -43,3 +43,14 @@ export const getReservationsByOffre = async (id_offre) => {
     throw error;
   }
 };
+
+export const getReservationsConfirmeesByEmploye = async (id_employe) => {
+  const http = await refreshToken();
+  try {
+    const response = await http.get(`/reservation/employe/${id_employe}/confirmees`);
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des réservations confirmées", error);
+    throw error;
+  }
+};

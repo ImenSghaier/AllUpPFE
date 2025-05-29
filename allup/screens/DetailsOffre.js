@@ -76,7 +76,7 @@ const DetailsOffre = ({ route }) => {
   
       if (result?.success) {
         Alert.alert("Succès", "Offre réservée avec succès !");
-        navigation.navigate('QRCode', { offre });
+        navigation.navigate('Employe', { offre });
       } else {
         Alert.alert("Erreur", result?.error || "Impossible de réserver cette offre.");
       }

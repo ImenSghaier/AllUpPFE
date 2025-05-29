@@ -53,7 +53,10 @@ const MesOffres = () => {
           >
             <TouchableOpacity
               style={styles.card}
-              onPress={() => navigation.navigate('QRCode', { offre: res.id_offre })}
+              onPress={() => navigation.navigate('QRCode', { 
+                offre: res.id_offre,
+                reservationId: res._id // Ajout de l'ID de réservation
+              })}
             >
               <Image
                 source={{ uri: `${url}/uploads/${res.id_offre.image}` }}
@@ -161,13 +164,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   statusPending: {
-    backgroundColor: '#f59e0b',
+    color: '#f59e0b',
   },
   statusConfirmed: {
-    backgroundColor: '#16a34a',
+    color: '#16a34a',
   },
   statusRejected: {
-    backgroundColor: '#dc2626',
+    color: '#dc2626',
   },
   emptyText: {
     color: '#777',

@@ -211,8 +211,9 @@
 }
 
 .custom-modal .ant-modal-close-x {
-  color: white;
+  color: #D2D3D9 !important;
   font-size: 1.2rem;
+  
 }
 
 .custom-modal .ant-modal-body {
@@ -227,9 +228,10 @@
 .custom-modal .ant-input,
 .custom-modal .ant-select-selector {
   border-radius: 8px !important;
-  border: 2px solid #D2D3D9 !important;
+  border: 2px solid #171F5D !important;
   padding: 0.5rem 0.5rem !important;
   transition: all 0.3s ease;
+
 }
 
 .custom-modal .ant-input:hover,
@@ -242,7 +244,7 @@
   border-top: none;
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .custom-modal .ant-modal-footer .ant-btn {
@@ -250,6 +252,7 @@
   padding: 0.5rem 0.5rem !important;
   font-weight: 500;
   transition: all 0.3s ease;
+  margin-top: -40px;
 }
 
 .custom-modal .ant-modal-footer .ant-btn-default {
@@ -269,6 +272,7 @@
 }
 
 .custom-modal .ant-modal-footer .ant-btn-primary:hover {
+  background-color: #171F5D;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 170, 0, 0.4);
 }
@@ -284,8 +288,9 @@
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 0.75rem;
+  padding: 1rem;
   display: flex;
+ 
   align-items: center;
   justify-content: center;
   gap: 0.5rem;

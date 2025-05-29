@@ -33,19 +33,22 @@ const generateHashedPassword = () => {
     const hashedPassword = bcrypt.hashSync(password, 8);
     return { password, hashedPassword };
 };
-// Afficher les informations du profil
 router.get('/profile', authMiddleware(), async (req, res) => {
     try {
         const user = await Utilisateur.findById(req.user._id)
-            .select('nom email telephone role id_entreprise');
+            .select('nom email telephone role id_entreprise')
+            .populate('id_entreprise', 'nom');
 
         if (!user) {
             return res.status(404).json({ message: "Utilisateur non trouvé" });
         }
 
-        res.status(200).json(user);
+        res.status(200).json({
+            ...user.toObject(),
+            entrepriseNom: user.id_entreprise?.nom
+        });
     } catch (error) {
-        console.error("Erreur lors de la récupération du profil :", error);
+        console.error("Erreur profil :", error);
         res.status(500).json({ message: "Erreur serveur" });
     }
 });

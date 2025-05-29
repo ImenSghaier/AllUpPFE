@@ -109,7 +109,7 @@
 
 /* Boutons */
 .add-button-e {
-  background-color: var(--vibrant-orange);
+  background-color: var(--dark-blue);
   color: var(--white);
   border: none;
   padding: 10px 20px;
@@ -154,7 +154,7 @@
 }
 
 .entreprise-table th {
-  background-color: var(--dark-blue);
+  background-color: var(--vibrant-orange);
   color: var(--white);
   padding: 15px;
   text-align: center;
@@ -292,9 +292,9 @@
   gap: 5px;
 }
 
-.form-group label {
+.label {
   font-size: 14px;
-  color: var(--vibrant-orange);
+  color: #FFAA00;
   font-weight: 500;
 }
 

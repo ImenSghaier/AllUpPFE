@@ -6,6 +6,7 @@ import demandeReducer from './reducers/demandeReducer';
 import reservationReducer from './reducers/reservationReducer';
 import offreFReducer from './reducers/offreFReducer';
 import { contractReducer } from './reducers/contractReducer';
+import { voteReducer } from './reducers/voteReducer';
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -15,6 +16,7 @@ const store = configureStore({
     reservation:reservationReducer,
     offre:offreFReducer,
     contract:contractReducer,
+    vote:voteReducer,
   },
 });
 
