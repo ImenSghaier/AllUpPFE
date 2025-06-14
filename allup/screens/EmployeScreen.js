@@ -34,7 +34,7 @@ export default function EmployeScreen() {
       <View style={styles.content}>{renderContent()}</View>
       <View style={styles.bottomBar}>
         <Tab icon="pricetag" label="Offres" onPress={() => setSelectedTab('offres')} active={selectedTab === 'offres'} />
-        <Tab icon="bulb" label="Suggestions" onPress={() => setSelectedTab('suggestion')} active={selectedTab === 'suggestion'} />
+        <Tab icon="thumbs-up" label="Votes" onPress={() => setSelectedTab('suggestion')} active={selectedTab === 'suggestion'} />
         <Tab icon="pricetags-outline" label="Mes Offres" onPress={() => setSelectedTab('mesOffres')} active={selectedTab === 'mesOffres'} />
         <Tab icon="cash" label="Subventions" onPress={() => setSelectedTab('subvention')} active={selectedTab === 'subvention'} />
         <Tab icon="person" label="Profil" onPress={() => setSelectedTab('profil')} active={selectedTab === 'profil'} />

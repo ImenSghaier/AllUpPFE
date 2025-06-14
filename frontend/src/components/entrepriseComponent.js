@@ -4,6 +4,7 @@ import { fetchEntreprises, addEntreprise, updateEntreprise, deleteEntreprise } f
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './entrepriseComponent.css';
+import { FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 const EntrepriseComponent = () => {
   const dispatch = useDispatch();
@@ -265,8 +266,8 @@ const EntrepriseComponent = () => {
               <td>{entreprise.adresse}</td>
               <td>{entreprise.telephone || 'Non renseigné'}</td>
               <td><div className="action-buttons">
-                <button className="edit-button" onClick={() => handleEdit(entreprise)}>✏️ Modifier</button>
-                <button className="delete-button" onClick={() => confirmDelete(entreprise._id)}>🗑️ Supprimer</button></div>
+                <button className="edit-button" onClick={() => handleEdit(entreprise)}><FiEdit2 className="icon" /> Modifier</button>
+                <button className="delete-button" onClick={() => confirmDelete(entreprise._id)}> <FiTrash2 className="icon" /> Supprimer</button></div>
               </td>
             </tr>
           ))}

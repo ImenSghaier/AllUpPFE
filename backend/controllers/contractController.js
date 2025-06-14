@@ -1,7 +1,6 @@
 const Contract = require("../models/contract"); 
 const Utilisateur = require('../models/utilisateur');
 const cron = require('node-cron'); 
-// 🔵 Socket.io (On le configure dans server.js)
 let io;
 const setSocketIo = (socketIoInstance) => {
   io = socketIoInstance;

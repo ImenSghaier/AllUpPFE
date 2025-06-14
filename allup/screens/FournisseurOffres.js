@@ -79,19 +79,36 @@ const FournisseurOffres = () => {
     }
   };
 
-  const pickImage = async () => {
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaType.IMAGE,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+
+  //   if (!result.cancelled) {
+  //     setImageUri(result.uri);
+  //   }
+  // };
+const pickImage = async () => {
+  try {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaType.IMAGE,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.8,
     });
 
     if (!result.cancelled) {
-      setImageUri(result.uri);
+      // Modification ici pour gérer les deux cas (édition et nouvelle image)
+      setImageUri(result.uri || result.assets?.[0]?.uri);
     }
-  };
-
+  } catch (error) {
+    console.error('Erreur lors de la sélection de l\'image:', error);
+    Alert.alert('Erreur', 'Impossible de sélectionner l\'image');
+  }
+};
   const handleSubmit = async () => {
     try {
       const offreData = {
@@ -401,17 +418,24 @@ const FournisseurOffres = () => {
             </View>
 
             {/* Image Picker */}
-            <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
-              {imageUri ? (
-                <Image source={{ uri: imageUri.uri || imageUri }} style={styles.imagePreview} />
-              ) : (
-                <View style={styles.imagePlaceholder}>
-                  <Icon name="add-a-photo" size={40} color="#D2D3D9" />
-                  <Text style={styles.imagePlaceholderText}>Ajouter une image</Text>
-                </View>
-              )}
-            </TouchableOpacity>
-
+           
+<TouchableOpacity 
+  onPress={pickImage} 
+  style={styles.imagePicker}
+  activeOpacity={0.7}
+>
+  {imageUri ? (
+    <Image 
+      source={{ uri: typeof imageUri === 'string' ? imageUri : imageUri.uri }} 
+      style={styles.imagePreview} 
+    />
+  ) : (
+    <View style={styles.imagePlaceholder}>
+      <Icon name="add-a-photo" size={40} color="#D2D3D9" />
+      <Text style={styles.imagePlaceholderText}>Ajouter une image</Text>
+    </View>
+  )}
+</TouchableOpacity>
             {/* Form Inputs */}
             <View style={styles.formGroup}>
               <Text style={styles.inputLabel}>Titre de l'offre</Text>

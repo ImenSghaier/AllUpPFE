@@ -1,346 +1,487 @@
 /* ContratEnvoyer.css */
 
+:root {
+  --primary-color: #171F5D;
+  --secondary-color: #FFAA00;
+  --success-color: #4CAF50;
+  --danger-color: #F44336;
+  --warning-color: #FF9800;
+  --info-color: #2196F3;
+  --light-gray: #F8F9FA;
+  --medium-gray: #D2D3D9;
+  --dark-gray: #666;
+  --white: #FFFFFF;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 .sent-contracts-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 1200px;
-  margin: 0.3rem auto;
-  padding: 1rem;
-  background: white;
+  max-width: 1400px;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  background: var(--white);
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(23, 31, 93, 0.1);
-  border: 1px solid rgba(210, 211, 217, 0.5);
+  box-shadow: var(--box-shadow);
   position: relative;
   overflow: hidden;
 }
-.contract-icon {
-  color: #171F5D;
-  margin-right: 12px;
-  font-size: 1.8rem;
-  vertical-align: middle;
-  transition: transform 0.3s ease;
+
+/* Header */
+.contracts-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
 }
 
-h2:hover .contract-icon {
-  transform: rotate(-15deg) scale(1.1);
-}
-.sent-contracts-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background: linear-gradient(90deg, #FFAA00, #171F5D);
-}
-
-.sent-contracts-container h2 {
-  color: #171F5D;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 2.2rem;
+.contracts-header h2 {
+  color: var(--primary-color);
+  margin: 0;
+  font-size: 2rem;
   font-weight: 700;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.8rem;
   position: relative;
   padding-bottom: 1rem;
 }
 
-.sent-contracts-container h2::after {
+.contracts-header h2::after {
   content: '';
   display: block;
-  width: 120px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, #FFAA00, #171F5D);
-  margin: 0.5rem auto 0;
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
   border-radius: 2px;
 }
 
-/* Filtres */
+.contract-icon {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  transition: transform 0.3s ease;
+}
+
+.badge {
+  background: var(--primary-color);
+  color: white;
+  border-radius: 20px;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}
+
+/* Search and Filter */
+.search-filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border: 1px solid var(--medium-gray);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(23, 31, 93, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dark-gray);
+}
+
+.mobile-filter {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobile-filter select {
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--medium-gray);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--primary-color);
+  font-size: 0.95rem;
+}
+
+/* Filter Buttons */
 .filter-container {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   margin-bottom: 2rem;
-  margin-top: -4rem;
   flex-wrap: wrap;
-  padding: 1rem;
-  background: rgba(210, 211, 217, 0.2);
-  border-radius: 30px;
 }
 
 .filter-container button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.8rem;
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 0.5rem;
-  min-width: 80px;
-  position: relative;
-  background: white;
-  box-shadow: 0 2px 8px rgba(23, 31, 93, 0.1);
+  padding: 0.8rem 1.2rem;
+  background: var(--white);
+  border: 1px solid var(--medium-gray);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
 }
 
 .filter-container button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(23, 31, 93, 0.15);
+  background: var(--light-gray);
+  transform: translateY(-2px);
 }
 
-.filter-container button::after {
-  content: attr(aria-label);
-  position: absolute;
-  bottom: -25px;
-  font-size: 0.75rem;
-  color: #171F5D;
-  font-weight: 500;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.filter-container button.active {
+  background: rgba(23, 31, 93, 0.1);
+  border-color: var(--primary-color);
+  font-weight: 600;
 }
 
-.filter-container button:hover::after {
-  opacity: 1;
+.filter-label {
+  display: inline;
 }
 
-/* Tableau */
+/* Table */
+.table-responsive {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(23, 31, 93, 0.08);
+}
+
 .contracts-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin: 1.5rem 0;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px #171f5d14;
+  min-width: 1000px;
 }
 
 .contracts-table thead tr {
-  background: linear-gradient(90deg, #171F5D, #0f1542);
-  color: white;
-  text-align: left;
+  background: var(--primary-color);
+  color: var(--white);
 }
 
 .contracts-table th {
-  padding: 0.5rem 0.5rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.5px;
-  background-color: #FFAA00;
-}
-
-.contracts-table th:first-child {
-  border-top-left-radius: 12px;
-}
-
-.contracts-table th:last-child {
-  border-top-right-radius: 12px;
-}
-
-.contracts-table td {
   padding: 1rem;
-  border-bottom: 1px solid rgba(210, 211, 217, 0.5);
-  vertical-align: middle;
+  font-weight: 600;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .contracts-table tbody tr {
   transition: all 0.3s ease;
-  background: white;
+  background: var(--white);
+}
+
+.contracts-table tbody tr:nth-child(even) {
+  background: var(--light-gray);
 }
 
 .contracts-table tbody tr:hover {
   background: rgba(255, 170, 0, 0.05);
-  transform: translateX(4px);
 }
 
-.contracts-table tbody tr:nth-child(even) {
-  background: #f8f9fa;
+.contracts-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--medium-gray);
+  vertical-align: middle;
+  font-size: 0.95rem;
 }
 
-.contracts-table tbody tr:nth-child(even):hover {
-  background: rgba(255, 170, 0, 0.05);
-}
-
-/* Styles pour les statuts */
-.status-en_attente {
-  color: #FFAA00;
-  font-weight: 600;
-  display: flex;
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-en_attente {
+  background: rgba(255, 170, 0, 0.1);
+  color: var(--warning-color);
 }
 
 .status-actif {
-  color: #4CAF50;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  background: rgba(76, 175, 80, 0.1);
+  color: var(--success-color);
 }
 
 .status-refusé {
-  color: #F44336;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  background: rgba(244, 67, 54, 0.1);
+  color: var(--danger-color);
 }
 
 .status-expiré {
-  color: #FF9800;
+  background: rgba(255, 152, 0, 0.1);
+  color: var(--warning-color);
+}
+
+/* Supplier Info */
+.supplier-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.supplier-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Date Range */
+.date-range {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.date-label {
+  font-size: 0.8rem;
+  color: var(--dark-gray);
+  margin-right: 0.3rem;
+}
+
+/* Signatures */
+.signatures {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.signed {
+  color: var(--success-color);
+}
+
+.not-signed {
+  color: var(--danger-color);
+}
+
+/* Action Buttons */
+.action-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-button {
+  background: var(--primary-color);
+  color: white;
+}
+
+.view-button:hover {
+  background: #0f1542;
+  transform: translateY(-2px);
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pagination-info {
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+}
+
+.pagination-controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* Pagination */
-.pagination {
+.pagination-button {
+  width: 36px;
+  height: 36px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
+  justify-content: center;
+  border: 1px solid var(--medium-gray);
+  background: var(--white);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.pagination button {
-  padding: 0.8rem 1.8rem;
-  background-color: #171F5D;
+.pagination-button:hover:not(:disabled) {
+  background: var(--light-gray);
+  border-color: var(--primary-color);
+}
+
+.pagination-button.active {
+  background: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color);
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-ellipsis {
+  padding: 0 0.5rem;
+}
+
+/* Empty States */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+}
+
+.empty-state img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.empty-state h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: var(--dark-gray);
+  max-width: 500px;
+  margin-bottom: 1.5rem;
+}
+
+.reset-filters {
+  padding: 0.8rem 1.5rem;
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(23, 31, 93, 0.2);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
-.pagination button:hover:not(:disabled) {
-  background-color: #FFAA00;
+.reset-filters:hover {
+  background: #0f1542;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 170, 0, 0.3);
 }
 
-.pagination button:disabled {
-  background-color: #D2D3D9;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
 }
 
-.pagination span {
-  font-weight: 600;
-  color: #171F5D;
-  font-size: 1.1rem;
-  min-width: 80px;
-  text-align: center;
+.loading-spinner {
+  border: 4px solid rgba(210, 211, 217, 0.3);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.5rem;
 }
 
-/* Messages d'état */
-.sent-contracts-container > p {
-  text-align: center;
-  color: #666;
-  font-size: 1.1rem;
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: rgba(210, 211, 217, 0.2);
-  border-radius: 10px;
-}
-
-/* Animation de chargement */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-.loading-spinner {
-  border: 4px solid rgba(210, 211, 217, 0.3);
-  border-top: 4px solid #FFAA00;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin: 3rem auto;
-}
-
-/* Icônes dans les cellules */
-.contracts-table td:has(> svg) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Signature */
-.signature-true {
-  color: #4CAF50;
-  font-weight: bold;
-}
-
-.signature-false {
-  color: #F44336;
-  font-weight: bold;
-}
-
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 992px) {
-  .contracts-table {
-      display: block;
-      overflow-x: auto;
-  }
-  
   .sent-contracts-container {
-      padding: 1.5rem;
-      margin: 1rem;
+    padding: 1.5rem;
   }
   
   .filter-container {
-      gap: 1rem;
+    display: none;
   }
   
-  .filter-container button {
-      padding: 0.6rem;
-      min-width: 70px;
+  .mobile-filter {
+    display: flex;
   }
   
-  .filter-container button svg {
-      width: 24px;
-      height: 24px;
-  }
-  
-  .pagination {
-      flex-direction: column;
-      gap: 1rem;
-  }
-  
-  .pagination button {
-      width: 100%;
-      justify-content: center;
+  .pagination-container {
+    flex-direction: column;
   }
 }
 
-/* Effets supplémentaires */
-.contracts-table tbody tr {
-  position: relative;
+@media (max-width: 768px) {
+  .contracts-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .search-bar {
+    min-width: 100%;
+  }
+  
+  .contracts-table td, .contracts-table th {
+    padding: 0.8rem;
+  }
+  
+  .supplier-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  
+  .supplier-avatar {
+    display: none;
+  }
 }
 
-.contracts-table tbody tr::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: transparent;
-  transition: all 0.3s ease;
-}
-
-.contracts-table tbody tr:hover::after {
-  background: #FFAA00;
+/* Tooltip */
+.react-tooltip {
+  font-size: 0.85rem !important;
+  padding: 0.5rem 1rem !important;
+  z-index: 1000 !important;
 }

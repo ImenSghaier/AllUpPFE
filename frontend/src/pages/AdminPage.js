@@ -42,13 +42,13 @@ const AdminPage = () => {
             <FaUserPlus className="icon" />
             Utilisateurs
           </button>
-          <button
+          {/* <button
             className={`nav-button ${activeTab === "dashboard" ? "active" : ""}`}
             onClick={() => setActiveTab("dashboard")}
           >
             <FaTachometerAlt className="icon" />
             Tableau de bord
-          </button>
+          </button> */}
         </nav>
 
         <button className="logout-button" onClick={handleLogout}>

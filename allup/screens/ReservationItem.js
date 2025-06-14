@@ -33,11 +33,11 @@ const ReservationItem = ({ item }) => {
         `Vous avez déjà donné un ${userVote.isPositive ? 'avis positif' : 'avis négatif'} pour cette offre`,
         [
           { text: 'OK', style: 'default' },
-          {
-            text: 'Voir les détails',
-            style: 'cancel',
-            onPress: () => navigation.navigate('VoteDetails', { offreId })
-          }
+          // {
+          //   text: 'Voir les détails',
+          //   style: 'cancel',
+          //   onPress: () => navigation.navigate('VoteDetails', { offreId })
+          // }
         ]
       );
     } else {

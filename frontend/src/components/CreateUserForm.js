@@ -229,7 +229,7 @@ const CreateUserForm = () => {
                                         <option value="" disabled>Sélectionnez un rôle</option>
                                         <option value="AdminEntreprise">Admin Entreprise</option>
                                         <option value="Fournisseur">Fournisseur</option>
-                                        <option value="Employé">Employé</option>
+                                        {/* <option value="Employé">Employé</option> */}
                                     </select>
                                 </div>
 
@@ -266,7 +266,8 @@ const CreateUserForm = () => {
                     <h1>
                         <HiOutlineUserGroup /> Gestion des Utilisateurs
                     </h1>
-                    <p>Gérez les comptes utilisateurs et leurs permissions</p>
+                    {/* <br/>
+                    <p>Gérez les comptes utilisateurs et leurs permissions</p> */}
                 </div>
                 
                 <button onClick={openModal} className="add-user-btn">
@@ -350,14 +351,14 @@ const CreateUserForm = () => {
                                                     className="edit-btn"
                                                     title="Modifier"
                                                 >
-                                                    <FiEdit2 color='white'/>Modifier
+                                                    <FiEdit2 className="icon" />Modifier
                                                 </button>
                                                 <button 
                                                     onClick={() => confirmDelete(user._id)} 
                                                     className="delete-btn"
                                                     title="Supprimer"
                                                 >
-                                                    <FiTrash2 color='white'/>Supprimer
+                                                     <FiTrash2 className="icon" />Supprimer
                                                 </button>
                                             </>
                                         )}
